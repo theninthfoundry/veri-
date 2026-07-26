@@ -1,0 +1,39 @@
+name: 'VERI BehaviorOS CI Gate'
+description: 'Enforces behavioral contract assertions and graph edit distance regression gating in CI pipelines.'
+inputs:
+  veri-api-key:
+    description: 'VERI API key or access token'
+    required: true
+  baseline-session:
+    description: 'ID of baseline working agent session graph'
+    required: true
+  candidate-session:
+    description: 'ID of candidate build session graph'
+    required: true
+  gateway-url:
+    description: 'VERI Gateway API endpoint URL'
+    required: false
+    default: 'http://localhost:8080'
+
+outputs:
+  gate-status:
+    description: 'PASS or FAIL status of the behavioral gate check'
+  diff-score:
+    description: 'Calculated structural graph edit distance score'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Run VERI Behavioral CI Gate
+      shell: bash
+      run: |
+        python -m veri.ci_runner \
+          --key "${{ inputs.veri-api-key }}" \
+          --gateway "${{ inputs.gateway-url }}" \
+          --baseline "${{ inputs.baseline-session }}" \
+          --candidate "${{ inputs.candidate-session }}"

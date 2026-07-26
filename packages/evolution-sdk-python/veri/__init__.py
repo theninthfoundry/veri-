@@ -17,6 +17,13 @@ from .escalation import (
 from .fingerprint import RuntimeFingerprint, capture_current_fingerprint, compute_behavior_hash
 from .contracts import BehaviorContract, ContractViolation, behavior_contract
 from .lineage import BehaviorBOM
+from .prediction import Prediction, run_predictive_analysis
+from .intent import Intent, IntentConflict, IntentAlignmentReport, align_intents
+from .compressor import RealityGraph, StateDelta, compress_session
+from .optimizer import Optimization, run_optimization_passes
+from .simulation import CounterfactualSimulator, SimulationResult
+from .learning import FailurePatternLearner, LearnedGuardrailRule
+from .bayesian import BayesianEpistemicNetwork
 
 logger = logging.getLogger("veri")
 
@@ -156,15 +163,25 @@ def instrument(frameworks: List[str]) -> None:
     """
     Applies auto-instrumentation hooks across target frameworks.
 
-    Supported frameworks: "openai", "langchain"
+    Supported frameworks: "openai", "langchain", "crewai", "autogen", "llamaindex"
     """
     from .patching import patch_runtime
+    from .adapters import patch_crewai, patch_autogen, patch_llamaindex
 
     client = get_client()
     if client.disabled:
         return
     for framework in frameworks:
-        patch_runtime(framework, client)
+        fw_lower = framework.lower()
+        if fw_lower == "crewai":
+            patch_crewai()
+        elif fw_lower == "autogen":
+            patch_autogen()
+        elif fw_lower == "llamaindex":
+            patch_llamaindex()
+        else:
+            patch_runtime(framework, client)
+
 
 
 def session(session_id: str, agent_id: str, project_id: str):

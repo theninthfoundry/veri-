@@ -615,7 +615,9 @@
                 <h1 id="tab-title">Escalation Queue <span class="header-badge">Enforcing</span></h1>
                 <div class="tagline" id="tab-tagline">Human-in-the-loop policy control & auditable verification</div>
             </div>
-            <div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <span class="header-badge" style="background: rgba(62, 139, 255, 0.1); border-color: var(--accent); color: var(--accent);">RBAC: Admin</span>
+                <input type="text" id="auth-token-input" placeholder="Bearer Key / Token..." class="session-selector" style="margin-right: 0; width: 180px;" value="dev_key_123">
                 <select id="project-select" class="session-selector" onchange="loadData()">
                     <option value="proj_alpha">Default Workspace (proj_alpha)</option>
                 </select>
