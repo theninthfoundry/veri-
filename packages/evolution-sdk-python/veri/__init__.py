@@ -17,13 +17,54 @@ from .escalation import (
 from .fingerprint import RuntimeFingerprint, capture_current_fingerprint, compute_behavior_hash
 from .contracts import BehaviorContract, ContractViolation, behavior_contract
 from .lineage import BehaviorBOM
-from .prediction import Prediction, run_predictive_analysis
+
+# ── Intelligence Layer 4/5 (Rewritten with real mathematical foundations) ──
+from .prediction import (
+    Prediction, run_predictive_analysis,
+    EWMATracker, MarkovTransitionModel, PageHinkleyDetector,
+    compute_shannon_entropy,
+)
 from .intent import Intent, IntentConflict, IntentAlignmentReport, align_intents
 from .compressor import RealityGraph, StateDelta, compress_session
-from .optimizer import Optimization, run_optimization_passes
-from .simulation import CounterfactualSimulator, SimulationResult
+from .optimizer import Optimization, run_optimization_passes, ParetoPoint
+
+# ── Deep Intelligence Layer (Rewritten) ──
+from .simulation import CounterfactualSimulator, SimulationResult, SensitivityReport, MultiAblationResult
 from .learning import FailurePatternLearner, LearnedGuardrailRule
-from .bayesian import BayesianEpistemicNetwork
+from .bayesian import BayesianEpistemicNetwork, BeliefState, ConditionalProbabilityTable
+
+# ── BehaviorOS v4.0 Intelligence Engines ──
+from .state_engine import (
+    BehavioralStateEngine, CognitivePhase, StateTransition,
+    CognitiveStateVector, CognitiveAnomaly,
+)
+from .causal import (
+    CausalReasoningEngine, CausalGraph, CausalStrength,
+    CausalLink, RootCause, InterventionResult,
+)
+from .genome import (
+    BehaviorGenome, extract_genome, compute_distance,
+    classify_phenotype, detect_drift, get_trait_stability,
+    DriftReport, TRAIT_NAMES,
+)
+from .physics import (
+    BehavioralPhysicsEngine, BehavioralState, BehavioralForce,
+    MomentumVector, BehavioralEnergy, PhaseTransition, Attractor,
+)
+from .search import (
+    BehaviorSignature, compute_signature, compute_similarity,
+    search_similar, match_antipatterns, SignatureIndex,
+    SearchResult, AntipatternMatch,
+)
+from .fleet import (
+    FleetIntelligenceEngine, AgentTopology, EmergentPattern,
+    FleetHealthReport, DelegationReport, CollectiveDriftReport,
+)
+from .evolution import (
+    EvolutionEngine, SessionOutcome, ImprovementRecommendation,
+    GenerationReport,
+)
+
 
 logger = logging.getLogger("veri")
 
@@ -197,3 +238,78 @@ def session(session_id: str, agent_id: str, project_id: str):
         call_limit=client.call_limit,
         escalation_engine=_global_escalation_engine,
     )
+
+
+# ── BehaviorOS v4.0 Intelligence Pipeline ─────────────────────────
+
+
+def intelligence(
+    nodes: List[RuntimeNode],
+    edges: List[RuntimeEdge],
+    budget: float = 5.0,
+    session_id: str = "",
+) -> dict:
+    """
+    Runs the full BehaviorOS v4.0 intelligence pipeline in a single call.
+
+    Returns a comprehensive intelligence report from all 7 engines:
+      - state: Cognitive state machine analysis
+      - causal: Causal reasoning and root cause analysis
+      - genome: Behavioral DNA extraction
+      - physics: Behavioral dynamics and forces
+      - predictions: Adaptive anomaly predictions
+      - optimizations: Compiler optimization opportunities
+      - search: Anti-pattern matching
+      - beliefs: Bayesian belief propagation
+    """
+    # 1. Behavioral State Engine
+    state_engine = BehavioralStateEngine()
+    state_engine.ingest_nodes(nodes)
+    state_report = state_engine.to_dict()
+
+    # 2. Causal Reasoning Engine
+    causal_engine = CausalReasoningEngine()
+    causal_graph = causal_engine.build_causal_graph(nodes, edges)
+    # Find error nodes for root cause analysis
+    error_nodes = [n for n in nodes if n.kind == NodeKind.ERROR]
+    root_causes = []
+    for err in error_nodes[:3]:  # Analyze top 3 errors
+        causes = causal_engine.find_root_causes(causal_graph, err.id, k=3)
+        root_causes.extend([c.to_dict() for c in causes])
+
+    # 3. Behavior Genome
+    genome = extract_genome(nodes, edges, session_id)
+
+    # 4. Behavioral Physics
+    physics_engine = BehavioralPhysicsEngine()
+    physics_report = physics_engine.to_dict(nodes)
+
+    # 5. Predictions
+    predictions = run_predictive_analysis(nodes, budget)
+
+    # 6. Optimizations
+    optimizations = run_optimization_passes(nodes, edges)
+
+    # 7. Behavioral Search (anti-pattern matching)
+    signature = compute_signature(nodes, edges, session_id)
+    antipatterns = match_antipatterns(signature)
+
+    # 8. Bayesian Beliefs
+    bayesian = BayesianEpistemicNetwork()
+    belief_states = bayesian.propagate_beliefs(nodes, edges)
+
+    return {
+        "state": state_report,
+        "causal": {
+            "root_causes": root_causes,
+            "graph_size": len(causal_graph.nodes),
+        },
+        "genome": genome.to_dict(),
+        "physics": physics_report,
+        "predictions": [p.to_dict() for p in predictions],
+        "optimizations": [o.to_dict() for o in optimizations],
+        "antipatterns": [a.to_dict() for a in antipatterns],
+        "beliefs": {
+            nid: bs.to_dict() for nid, bs in list(belief_states.items())[:20]
+        },
+    }
