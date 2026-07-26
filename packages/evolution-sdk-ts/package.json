@@ -1,0 +1,28 @@
+{
+  "name": "@veri-ai/sdk",
+  "version": "6.0.0",
+  "description": "VERI Intelligence Operating System SDK for TypeScript & Node.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "node dist/index.js"
+  },
+  "keywords": [
+    "veri",
+    "agent-os",
+    "ai-governance",
+    "runtime-intelligence",
+    "typescript-sdk"
+  ],
+  "author": "VERI Team",
+  "license": "MIT",
+  "dependencies": {
+    "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  }
+}
