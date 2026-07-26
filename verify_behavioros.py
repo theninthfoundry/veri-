@@ -17,9 +17,12 @@ Exercises:
 """
 
 import sys
+import os
 import time
-from veri.ir import RuntimeNode, RuntimeEdge, NodeKind, EdgeKind
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "packages", "evolution-sdk-python"))
 import veri
+from veri.ir import RuntimeNode, RuntimeEdge, NodeKind, EdgeKind
 
 def build_synthetic_trace():
     """Generates a rich synthetic execution trace for testing."""

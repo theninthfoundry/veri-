@@ -13,9 +13,13 @@ Exercises:
   9. Enterprise Platform Controls (multi-tenancy & SOC 2 / GDPR compliance exports)
 """
 
+import sys
+import os
 import time
-from veri.ir import RuntimeNode, RuntimeEdge, NodeKind, EdgeKind
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "packages", "evolution-sdk-python"))
 import veri
+from veri.ir import RuntimeNode, RuntimeEdge, NodeKind, EdgeKind
 
 def build_v5_trace():
     session_id = "sess_v5_enterprise"

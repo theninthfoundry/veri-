@@ -4,8 +4,11 @@ Runs end-to-end assertions against all newly introduced components.
 """
 
 import sys
+import os
 import json
 import time
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "packages", "evolution-sdk-python"))
 
 def test_phase_a_adapters():
     print("Testing Phase A: Extended Framework Adapters...")

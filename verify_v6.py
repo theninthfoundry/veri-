@@ -13,9 +13,13 @@ Exercises:
   9. Civilization Engine (AI civilization stability, GDP & macro governance)
 """
 
+import sys
+import os
 import time
-from veri.ir import RuntimeNode, NodeKind
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "packages", "evolution-sdk-python"))
 import veri
+from veri.ir import RuntimeNode, NodeKind
 
 def run_v6_verification():
     print("==================================================================")

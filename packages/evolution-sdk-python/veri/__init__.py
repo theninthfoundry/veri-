@@ -86,9 +86,47 @@ from .bcontainer import BehaviorContainer, BehaviorPackageManager
 from .ik8s import IntelligenceKubernetes, AgentPod
 from .digi_org import DigitalOrganization, DigitalEmployee, AgentBudgetBundle
 from .civilization import CivilizationEngine, CivilizationStatus
-
-
-
+__all__ = [
+    "init", "get_client", "reset", "instrument", "session", "intelligence", "VeriClient",
+    "NodeKind", "EdgeKind", "RuntimeNode", "RuntimeEdge", "IRRef",
+    "EscalationRequired", "EscalationAborted", "EscalationTimedOut", "EscalationPolicy",
+    "EscalationRecord", "EscalationEngine", "compute_approval_signature", "verify_approval_signature",
+    "RuntimeFingerprint", "capture_current_fingerprint", "compute_behavior_hash",
+    "BehaviorContract", "ContractViolation", "behavior_contract", "BehaviorBOM",
+    "Prediction", "run_predictive_analysis", "EWMATracker", "MarkovTransitionModel",
+    "PageHinkleyDetector", "compute_shannon_entropy",
+    "Intent", "IntentConflict", "IntentAlignmentReport", "align_intents",
+    "RealityGraph", "StateDelta", "compress_session",
+    "Optimization", "run_optimization_passes", "ParetoPoint",
+    "CounterfactualSimulator", "SimulationResult", "SensitivityReport", "MultiAblationResult",
+    "FailurePatternLearner", "LearnedGuardrailRule",
+    "BayesianEpistemicNetwork", "BeliefState", "ConditionalProbabilityTable",
+    "BehavioralStateEngine", "CognitivePhase", "StateTransition", "CognitiveStateVector", "CognitiveAnomaly",
+    "CausalReasoningEngine", "CausalGraph", "CausalStrength", "CausalLink", "RootCause", "InterventionResult",
+    "BehaviorGenome", "extract_genome", "compute_distance", "classify_phenotype", "detect_drift", "get_trait_stability", "DriftReport", "TRAIT_NAMES",
+    "BehavioralPhysicsEngine", "BehavioralState", "BehavioralForce", "MomentumVector", "BehavioralEnergy", "PhaseTransition", "Attractor",
+    "BehaviorSignature", "compute_signature", "compute_similarity", "search_similar", "match_antipatterns", "SignatureIndex", "SearchResult", "AntipatternMatch",
+    "FleetIntelligenceEngine", "AgentTopology", "EmergentPattern", "FleetHealthReport", "DelegationReport", "CollectiveDriftReport",
+    "EvolutionEngine", "SessionOutcome", "ImprovementRecommendation", "GenerationReport",
+    "BehaviorKernel", "KernelStepResult",
+    "BehavioralMemoryStore", "BehavioralEpisode", "EpisodeSearchResult",
+    "BehavioralDatabase", "BQLQueryResult", "SessionRecord",
+    "UnifiedBehaviorGraph", "BehaviorGraphNode", "BehaviorGraphEdge", "CognitiveNodeKind", "CognitiveEdgeKind",
+    "BehaviorScheduler", "AgentTask",
+    "BehaviorPlanner", "VerifiedPlan", "PlanStep",
+    "BehaviorCompilerV2", "CompiledDeploymentArtifact",
+    "FailurePredictionModel", "PlanningOptimizationModel", "AnomalyClassificationModel", "RecoveryRecommendationModel",
+    "Organization", "Workspace", "ComplianceAuditExporter",
+    "IntelligenceKernel", "BehaviorProcess", "ProcessState", "ReasoningBudget", "ContextWindowAllotment", "ConcurrentThought",
+    "HierarchicalMemoryManager", "MemoryLayer", "MemoryItem",
+    "IntelligenceFileSystem", "KnowledgeObject",
+    "BProtoSession", "BProtoPacket", "BProtoMessageType",
+    "BehaviorVirtualMachine", "BVMInstruction", "BVMOpcode", "BVMExecutionResult",
+    "BehaviorContainer", "BehaviorPackageManager",
+    "IntelligenceKubernetes", "AgentPod",
+    "DigitalOrganization", "DigitalEmployee", "AgentBudgetBundle",
+    "CivilizationEngine", "CivilizationStatus",
+]
 
 logger = logging.getLogger("veri")
 
