@@ -19,6 +19,21 @@ import time
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "packages", "evolution-sdk-python"))
 import veri
+from veri import (
+    BehaviorKernel,
+    BehavioralMemoryStore,
+    BehavioralEpisode,
+    CognitivePhase,
+    BehavioralDatabase,
+    UnifiedBehaviorGraph,
+    BehaviorScheduler,
+    AgentTask,
+    BehaviorPlanner,
+    BehaviorCompilerV2,
+    FailurePredictionModel,
+    AnomalyClassificationModel,
+    ComplianceAuditExporter,
+)
 from veri.ir import RuntimeNode, RuntimeEdge, NodeKind, EdgeKind
 
 def build_v5_trace():

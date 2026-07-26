@@ -1,4 +1,8 @@
 {
+  "extraPaths": [
+    "packages/evolution-sdk-python",
+    "packages/veri-cli"
+  ],
   "executionEnvironments": [
     {
       "root": ".",

@@ -22,6 +22,22 @@ import time
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "packages", "evolution-sdk-python"))
 import veri
+from veri import (
+    run_predictive_analysis,
+    BayesianEpistemicNetwork,
+    CounterfactualSimulator,
+    run_optimization_passes,
+    BehavioralStateEngine,
+    CausalReasoningEngine,
+    extract_genome,
+    classify_phenotype,
+    BehavioralPhysicsEngine,
+    compute_signature,
+    match_antipatterns,
+    FleetIntelligenceEngine,
+    EvolutionEngine,
+    intelligence,
+)
 from veri.ir import RuntimeNode, RuntimeEdge, NodeKind, EdgeKind
 
 def build_synthetic_trace():

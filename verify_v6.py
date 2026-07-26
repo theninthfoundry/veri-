@@ -19,6 +19,23 @@ import time
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "packages", "evolution-sdk-python"))
 import veri
+from veri import (
+    IntelligenceKernel,
+    HierarchicalMemoryManager,
+    MemoryLayer,
+    IntelligenceFileSystem,
+    BProtoSession,
+    BProtoMessageType,
+    BehaviorVirtualMachine,
+    BVMInstruction,
+    BVMOpcode,
+    BehaviorGenome,
+    BehaviorContainer,
+    BehaviorPackageManager,
+    IntelligenceKubernetes,
+    DigitalOrganization,
+    CivilizationEngine,
+)
 from veri.ir import RuntimeNode, NodeKind
 
 def run_v6_verification():
