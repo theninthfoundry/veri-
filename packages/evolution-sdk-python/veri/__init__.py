@@ -65,6 +65,18 @@ from .evolution import (
     GenerationReport,
 )
 
+# ── BehaviorOS v5.0 Operating System Subsystems ──
+from .kernel import BehaviorKernel, KernelStepResult
+from .behavior_memory import BehavioralMemoryStore, BehavioralEpisode, EpisodeSearchResult
+from .behavior_db import BehavioralDatabase, BQLQueryResult, SessionRecord
+from .behavior_graph import UnifiedBehaviorGraph, BehaviorGraphNode, BehaviorGraphEdge, CognitiveNodeKind, CognitiveEdgeKind
+from .scheduler import BehaviorScheduler, AgentTask
+from .planner import BehaviorPlanner, VerifiedPlan, PlanStep
+from .compiler_v2 import BehaviorCompilerV2, CompiledDeploymentArtifact
+from .behavior_models import FailurePredictionModel, PlanningOptimizationModel, AnomalyClassificationModel, RecoveryRecommendationModel
+from .enterprise import Organization, Workspace, ComplianceAuditExporter
+
+
 
 logger = logging.getLogger("veri")
 

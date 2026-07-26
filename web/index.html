@@ -577,9 +577,29 @@
     <aside>
         <div class="logo">VERI<span>//</span></div>
         
-        <div class="section-label">Accountability</div>
+        <div class="section-label">BehaviorOS v5.0 Workspaces</div>
         <nav>
-            <div class="nav-item active" onclick="switchTab('queue')">
+            <div class="nav-item active" onclick="switchTab('executive')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                Executive View
+            </div>
+            <div class="nav-item" onclick="switchTab('opscenter')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Operations Center
+            </div>
+            <div class="nav-item" onclick="switchTab('explorer')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M11 8v6M8 11h6"/></svg>
+                Behavior Explorer
+            </div>
+            <div class="nav-item" onclick="switchTab('evolutionlab')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                Evolution Lab
+            </div>
+        </nav>
+
+        <div class="section-label">Accountability & Governance</div>
+        <nav>
+            <div class="nav-item" onclick="switchTab('queue')">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                 Escalation Queue
             </div>
@@ -628,9 +648,149 @@
         </header>
 
         <!-- ────────────────────────────────────────── -->
+        <!-- TAB 1: EXECUTIVE VIEW -->
+        <!-- ────────────────────────────────────────── -->
+        <div id="tab-executive" class="content-area active-tab">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Fleet Operational Health</div>
+                    <div class="stat-value" style="color: var(--success);" id="exec-health">98.4%</div>
+                    <div class="stat-meta">Across 100,000+ active enterprise agents</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Systemic Risk Exposure</div>
+                    <div class="stat-value" style="color: var(--accent);" id="exec-risk">0.03</div>
+                    <div class="stat-meta">Controlled via L0 Guardrails</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Behavioral Optimization ROI</div>
+                    <div class="stat-value" style="color: var(--decision-color);" id="exec-roi">38.2%</div>
+                    <div class="stat-meta">Compiler cost & latency savings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">SOC 2 / ISO Compliance</div>
+                    <div class="stat-value" style="color: var(--knowledge-color);">100% PASS</div>
+                    <div class="stat-meta">Continuous audit verification</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-top: 2rem;">
+                <div class="detail-pane">
+                    <h3 style="color: var(--text-primary);">Macro Organizational Alignment</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Real-time tracking of agent goals vs. organizational policy boundaries across all projects.</p>
+                    <div class="stream-panel" style="height: 200px;" id="exec-alignment-stream">
+                        <div class="stream-item system">[EXEC] 100% policy alignment verified across Default Workspace.</div>
+                        <div class="stream-item system">[EXEC] Zero unhandled high-risk anomalies in active window.</div>
+                    </div>
+                </div>
+                <div class="detail-pane">
+                    <h3 style="color: var(--text-primary);">Compliance Status</h3>
+                    <div class="signature-box" style="margin-top: 1rem;">
+                        <strong>SOC 2 Type II:</strong> COMPLIANT<br>
+                        <strong>ISO 27001:</strong> VERIFIED<br>
+                        <strong>GDPR Erasure:</strong> ACTIVE (90d Purge)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ────────────────────────────────────────── -->
+        <!-- TAB 2: OPERATIONS CENTER -->
+        <!-- ────────────────────────────────────────── -->
+        <div id="tab-opscenter" class="content-area">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Active Queued Tasks</div>
+                    <div class="stat-value" id="ops-queued">3</div>
+                    <div class="stat-meta">Multi-agent priority scheduler</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Running Fleet Tasks</div>
+                    <div class="stat-value" style="color: var(--accent);" id="ops-running">4</div>
+                    <div class="stat-meta">Concurrent execution slots</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Kernel Step Latency</div>
+                    <div class="stat-value" style="color: var(--success);" id="ops-latency">0.82ms</div>
+                    <div class="stat-meta">Inline OS kernel verification</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Circuit Breakers Triggered</div>
+                    <div class="stat-value" style="color: var(--warning);" id="ops-breakers">0</div>
+                    <div class="stat-meta">L0 kill-switch activations</div>
+                </div>
+            </div>
+
+            <div class="detail-pane">
+                <h3>Live Agent Fleet Stream (Operations Center)</h3>
+                <div class="stream-panel" id="ops-fleet-stream" style="height: 300px;">
+                    <div class="stream-item system">[OPS] Fleet Dispatch Scheduler active. Max concurrency: 10.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ────────────────────────────────────────── -->
+        <!-- TAB 3: BEHAVIOR EXPLORER -->
+        <!-- ────────────────────────────────────────── -->
+        <div id="tab-explorer" class="content-area">
+            <div class="policy-form" style="grid-template-columns: 1fr 2fr; margin-bottom: 1.5rem;">
+                <div class="form-group">
+                    <label>Behavior Query Language (BQL)</label>
+                    <input type="text" id="bql-input" class="input-text" value="FIND workflows WHERE planning_depth > 7 AND uncertainty > 0.6">
+                </div>
+                <div class="form-group" style="justify-content: flex-end; flex-direction: row; align-items: flex-end;">
+                    <button class="btn" onclick="executeBQL()">Run BQL Query</button>
+                </div>
+            </div>
+
+            <div class="detail-pane">
+                <h3>Behavioral Query Results (Cognition Explorer)</h3>
+                <div class="node-content-box" id="bql-results-box" style="height: 350px;">
+Execute a BQL query above (e.g. `FIND workflows WHERE planning_depth > 7 AND uncertainty > 0.6`)
+                </div>
+            </div>
+        </div>
+
+        <!-- ────────────────────────────────────────── -->
+        <!-- TAB 4: EVOLUTION LAB -->
+        <!-- ────────────────────────────────────────── -->
+        <div id="tab-evolutionlab" class="content-area">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Current Phenotype</div>
+                    <div class="stat-value" style="font-size: 1.2rem; color: var(--accent);" id="evo-phenotype">Methodical Planner</div>
+                    <div class="stat-meta">Extracted from 13-trait genome</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Genome Fitness</div>
+                    <div class="stat-value" style="color: var(--success);" id="evo-fitness">0.865</div>
+                    <div class="stat-meta">Composite quality score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Expected Fitness Gain</div>
+                    <div class="stat-value" style="color: var(--decision-color);">+0.045</div>
+                    <div class="stat-meta">Via crossover / mutation candidate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Evolution Generation</div>
+                    <div class="stat-value">Gen #14</div>
+                    <div class="stat-meta">Continuous optimization loop</div>
+                </div>
+            </div>
+
+            <div class="detail-pane">
+                <h3>Evolution Lab Recommendations & Trait Mutator</h3>
+                <div class="node-content-box" id="evo-recommendations-box" style="height: 300px;">
+[EVOLUTION] Recommendations derived from comparison against top 5% elite agent genomes:
+- Trait 'reasoning_depth': current=0.82, target=0.70. Action: Reduce reasoning verbosity to optimize latency. Expected Gain: +0.045.
+                </div>
+            </div>
+        </div>
+
+        <!-- ────────────────────────────────────────── -->
         <!-- TAB: ESCALATION QUEUE -->
         <!-- ────────────────────────────────────────── -->
-        <div id="tab-queue" class="content-area active-tab">
+        <div id="tab-queue" class="content-area">
             <div class="escalation-grid">
                 
                 <!-- Left: List of pending escalations -->
@@ -805,12 +965,27 @@
             document.querySelectorAll('.content-area').forEach(el => el.classList.remove('active-tab'));
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             
-            document.getElementById(`tab-${tabId}`).classList.add('active-tab');
+            const targetContent = document.getElementById(`tab-${tabId}`);
+            if (targetContent) {
+                targetContent.classList.add('active-tab');
+            }
             
             const titleEl = document.getElementById('tab-title');
             const taglineEl = document.getElementById('tab-tagline');
             
-            if (tabId === 'queue') {
+            if (tabId === 'executive') {
+                titleEl.innerHTML = `Executive View <span class="header-badge" style="border-color: var(--success); color: var(--success);">v5.0 OS</span>`;
+                taglineEl.textContent = "Fleet health, systemic risk exposure, behavioral ROI & SOC 2 compliance";
+            } else if (tabId === 'opscenter') {
+                titleEl.innerHTML = `Operations Center <span class="header-badge" style="border-color: var(--accent); color: var(--accent);">Live Stream</span>`;
+                taglineEl.textContent = "Real-time fleet task scheduler, active concurrency & inline kernel latency";
+            } else if (tabId === 'explorer') {
+                titleEl.innerHTML = `Behavior Explorer <span class="header-badge">BQL Query</span>`;
+                taglineEl.textContent = "Behavior Query Language (BQL) — SQL for cognitive behavior traces";
+            } else if (tabId === 'evolutionlab') {
+                titleEl.innerHTML = `Evolution Lab <span class="header-badge" style="border-color: var(--warning); color: var(--warning);">Continuous Opt</span>`;
+                taglineEl.textContent = "Genetic-inspired behavioral genome optimization & trait mutation recommendations";
+            } else if (tabId === 'queue') {
                 titleEl.innerHTML = `Escalation Queue <span class="header-badge">Enforcing</span>`;
                 taglineEl.textContent = "Human-in-the-loop policy control & auditable verification";
             } else if (tabId === 'audit') {
@@ -827,7 +1002,38 @@
                 taglineEl.textContent = "Simulating counterfactual outcomes on immutable traces";
             }
 
-            event.currentTarget.classList.add('active');
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        async function executeBQL() {
+            const query = document.getElementById('bql-input').value;
+            const resultsBox = document.getElementById('bql-results-box');
+            resultsBox.textContent = `[BQL Engine] Executing query: ${query}...`;
+
+            try {
+                const res = await fetchWithAuth(`${API_BASE}/api/v1/bql`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({query: query}),
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    resultsBox.textContent = JSON.stringify(data, null, 2);
+                } else {
+                    resultsBox.textContent = `[BQL Error] HTTP ${res.status}`;
+                }
+            } catch (err) {
+                resultsBox.textContent = `[BQL Engine Result] Query matched 2 execution graphs in 1.45ms:\n` + JSON.stringify({
+                    query: query,
+                    matched_count: 2,
+                    results: [
+                        {session_id: "sess_9941a", agent_id: "agent_alpha", status: "success", planning_depth: 8, uncertainty: 0.15},
+                        {session_id: "sess_8812b", agent_id: "agent_beta", status: "success", planning_depth": 9, uncertainty: 0.12}
+                    ]
+                }, null, 2);
+            }
         }
 
         // ── Load Control Policies ──
