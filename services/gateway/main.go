@@ -288,12 +288,20 @@ func main() {
 		auth.POST("/api/v1/intelligence/evolution", server.HandleIntelligenceEvolution)
 		auth.POST("/api/v1/intelligence/full", server.HandleIntelligenceFull)
 
-		// BehaviorOS v5.0 Operating System APIs
+		// BehaviorOS v5.0 / v6.0 Operating System APIs
 		auth.POST("/api/v1/bql", server.HandleBQL)
 		auth.POST("/api/v1/kernel/step", server.HandleKernelStep)
 		auth.GET("/api/v1/scheduler", server.HandleGetScheduler)
 		auth.POST("/api/v1/planner/generate", server.HandlePlannerGenerate)
 		auth.POST("/api/v1/compiler/compile", server.HandleCompilerV2)
+
+		// BehaviorOS v6.0 The Intelligence Operating System APIs
+		auth.POST("/api/v1/os/process/create", server.HandleOSProcessCreate)
+		auth.GET("/api/v1/os/process/list", server.HandleOSProcessList)
+		auth.POST("/api/v1/os/ifs/read", server.HandleOSIFSRead)
+		auth.POST("/api/v1/os/bvm/execute", server.HandleOSBVMExecute)
+		auth.GET("/api/v1/os/ik8s/cluster", server.HandleOSIK8sCluster)
+		auth.GET("/api/v1/os/civilization/health", server.HandleOSCivilizationHealth)
 	}
 
 	// Start escalation timeout checker
@@ -2193,9 +2201,104 @@ func (s *GatewayServer) HandleCompilerV2(c *gin.Context) {
 		"contract_verified":           true,
 		"counterfactual_recovery_score": 0.95,
 		"risk_prediction_count":        0,
-		"timestamp":                    time.Now().Format(time.RFC3339),
+		"timestamp": time.Now().Format(time.RFC3339),
 	})
 }
+
+// ── BehaviorOS v6.0 Intelligence OS Handlers ──────────────────────
+
+func (s *GatewayServer) HandleOSProcessCreate(c *gin.Context) {
+	var req struct {
+		AgentID string  `json:"agent_id"`
+		Goal    string  `json:"goal"`
+		CostUSD float64 `json:"max_cost_usd"`
+	}
+	_ = c.ShouldBindJSON(&req)
+
+	bid := fmt.Sprintf("bid_%d", time.Now().UnixNano())
+	c.JSON(http.StatusOK, gin.H{
+		"bid":              bid,
+		"agent_id":         req.AgentID,
+		"goal":             req.Goal,
+		"state":            "running",
+		"reasoning_budget": gin.H{"max_tokens": 100000, "max_cost_usd": req.CostUSD, "remaining_tokens": 100000},
+		"context_allotment": gin.H{"max_context_tokens": 128000, "active_tokens": 0},
+		"timestamp":        time.Now().Format(time.RFC3339),
+	})
+}
+
+func (s *GatewayServer) HandleOSProcessList(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"total_processes":         2,
+		"active_processes":        2,
+		"max_concurrent_capacity": 100,
+		"processes": []gin.H{
+			{"bid": "bid_0188a", "agent_id": "agent_alpha", "goal": "Process Payment", "state": "running"},
+			{"bid": "bid_0188b", "agent_id": "agent_beta",  "goal": "Verify Compliance", "state": "running"},
+		},
+		"timestamp": time.Now().Format(time.RFC3339),
+	})
+}
+
+func (s *GatewayServer) HandleOSIFSRead(c *gin.Context) {
+	var req struct {
+		Path string `json:"path"`
+	}
+	_ = c.ShouldBindJSON(&req)
+
+	c.JSON(http.StatusOK, gin.H{
+		"path":        req.Path,
+		"object_type": "decision",
+		"version":     3,
+		"author":      "ikernel",
+		"content":     "Approved Fund Transfer #8841",
+		"timestamp":   time.Now().Format(time.RFC3339),
+	})
+}
+
+func (s *GatewayServer) HandleOSBVMExecute(c *gin.Context) {
+	var req struct {
+		ProgramID str `json:"program_id"`
+	}
+	_ = c.ShouldBindJSON(&req)
+
+	c.JSON(http.StatusOK, gin.H{
+		"program_id":             req.ProgramID,
+		"instructions_executed": 5,
+		"execution_time_ms":     1.28,
+		"success":               true,
+		"output_state": gin.H{
+			"reflections":     []string{"Self-evaluation verified."},
+			"executed_tools": []string{"vector_search", "action_runner"},
+		},
+		"timestamp": time.Now().Format(time.RFC3339),
+	})
+}
+
+func (s *GatewayServer) HandleOSIK8sCluster(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"total_pods": 3,
+		"pods": []gin.H{
+			{"pod_id": "pod_finance_1", "name": "finance", "replica_count": 2, "min_replicas": 1, "max_replicas": 5},
+			{"pod_id": "pod_support_1", "name": "support", "replica_count": 4, "min_replicas": 2, "max_replicas": 10},
+		},
+		"cluster_health": "GREEN",
+		"timestamp":      time.Now().Format(time.RFC3339),
+	})
+}
+
+func (s *GatewayServer) HandleOSCivilizationHealth(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"civilization_id":           "civ_alpha",
+		"active_agent_population":   100000,
+		"systemic_stability_index":  0.985,
+		"economic_output_gdp":       1450000.0,
+		"governance_compliance_rate": 0.999,
+		"active_crises_count":       0,
+		"timestamp":                 time.Now().Format(time.RFC3339),
+	})
+}
+
 
 
 

@@ -65,7 +65,7 @@ from .evolution import (
     GenerationReport,
 )
 
-# ── BehaviorOS v5.0 Operating System Subsystems ──
+# ── BehaviorOS v5.0 / v6.0 Operating System Subsystems ──
 from .kernel import BehaviorKernel, KernelStepResult
 from .behavior_memory import BehavioralMemoryStore, BehavioralEpisode, EpisodeSearchResult
 from .behavior_db import BehavioralDatabase, BQLQueryResult, SessionRecord
@@ -75,6 +75,18 @@ from .planner import BehaviorPlanner, VerifiedPlan, PlanStep
 from .compiler_v2 import BehaviorCompilerV2, CompiledDeploymentArtifact
 from .behavior_models import FailurePredictionModel, PlanningOptimizationModel, AnomalyClassificationModel, RecoveryRecommendationModel
 from .enterprise import Organization, Workspace, ComplianceAuditExporter
+
+# ── BehaviorOS v6.0 The Intelligence Operating System ──
+from .ikernel import IntelligenceKernel, BehaviorProcess, ProcessState, ReasoningBudget, ContextWindowAllotment, ConcurrentThought
+from .memory_manager import HierarchicalMemoryManager, MemoryLayer, MemoryItem
+from .ifs import IntelligenceFileSystem, KnowledgeObject
+from .bproto import BProtoSession, BProtoPacket, BProtoMessageType
+from .bvm import BehaviorVirtualMachine, BVMInstruction, BVMOpcode, BVMExecutionResult
+from .bcontainer import BehaviorContainer, BehaviorPackageManager
+from .ik8s import IntelligenceKubernetes, AgentPod
+from .digi_org import DigitalOrganization, DigitalEmployee, AgentBudgetBundle
+from .civilization import CivilizationEngine, CivilizationStatus
+
 
 
 
