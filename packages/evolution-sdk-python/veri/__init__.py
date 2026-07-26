@@ -1,91 +1,128 @@
 import os
 import logging
 from typing import List, Optional
-from .client import VeriClient
-from .ir import NodeKind, EdgeKind, RuntimeNode, RuntimeEdge
-from .ir_ref import IRRef
+from .client import VeriClient as VeriClient
+from .ir import NodeKind as NodeKind, EdgeKind as EdgeKind, RuntimeNode as RuntimeNode, RuntimeEdge as RuntimeEdge
+from .ir_ref import IRRef as IRRef
 from .escalation import (
-    EscalationRequired,
-    EscalationAborted,
-    EscalationTimedOut,
-    EscalationPolicy,
-    EscalationRecord,
-    EscalationEngine,
-    compute_approval_signature,
-    verify_approval_signature,
+    EscalationRequired as EscalationRequired,
+    EscalationAborted as EscalationAborted,
+    EscalationTimedOut as EscalationTimedOut,
+    EscalationPolicy as EscalationPolicy,
+    EscalationRecord as EscalationRecord,
+    EscalationEngine as EscalationEngine,
+    compute_approval_signature as compute_approval_signature,
+    verify_approval_signature as verify_approval_signature,
 )
-from .fingerprint import RuntimeFingerprint, capture_current_fingerprint, compute_behavior_hash
-from .contracts import BehaviorContract, ContractViolation, behavior_contract
-from .lineage import BehaviorBOM
+from .fingerprint import RuntimeFingerprint as RuntimeFingerprint, capture_current_fingerprint as capture_current_fingerprint, compute_behavior_hash as compute_behavior_hash
+from .contracts import BehaviorContract as BehaviorContract, ContractViolation as ContractViolation, behavior_contract as behavior_contract
+from .lineage import BehaviorBOM as BehaviorBOM
 
-# ── Intelligence Layer 4/5 (Rewritten with real mathematical foundations) ──
+# ── Submodules Re-exported for Pyright Type Checking ──
+from . import prediction as prediction
+from . import intent as intent
+from . import compressor as compressor
+from . import optimizer as optimizer
+from . import simulation as simulation
+from . import learning as learning
+from . import bayesian as bayesian
+from . import state_engine as state_engine
+from . import causal as causal
+from . import genome as genome
+from . import physics as physics
+from . import search as search
+from . import fleet as fleet
+from . import evolution as evolution
+from . import kernel as kernel
+from . import behavior_memory as behavior_memory
+from . import behavior_db as behavior_db
+from . import behavior_graph as behavior_graph
+from . import scheduler as scheduler
+from . import planner as planner
+from . import compiler_v2 as compiler_v2
+from . import behavior_models as behavior_models
+from . import enterprise as enterprise
+from . import ikernel as ikernel
+from . import memory_manager as memory_manager
+from . import ifs as ifs
+from . import bproto as bproto
+from . import bvm as bvm
+from . import bcontainer as bcontainer
+from . import ik8s as ik8s
+from . import digi_org as digi_org
+from . import civilization as civilization
+from . import ci_runner as ci_runner
+from . import adapters as adapters
+
+# ── Intelligence Layer 4/5 ──
 from .prediction import (
-    Prediction, run_predictive_analysis,
-    EWMATracker, MarkovTransitionModel, PageHinkleyDetector,
-    compute_shannon_entropy,
+    Prediction as Prediction, run_predictive_analysis as run_predictive_analysis,
+    EWMATracker as EWMATracker, MarkovTransitionModel as MarkovTransitionModel, PageHinkleyDetector as PageHinkleyDetector,
+    compute_shannon_entropy as compute_shannon_entropy,
 )
-from .intent import Intent, IntentConflict, IntentAlignmentReport, align_intents
-from .compressor import RealityGraph, StateDelta, compress_session
-from .optimizer import Optimization, run_optimization_passes, ParetoPoint
+from .intent import Intent as Intent, IntentConflict as IntentConflict, IntentAlignmentReport as IntentAlignmentReport, align_intents as align_intents
+from .compressor import RealityGraph as RealityGraph, StateDelta as StateDelta, compress_session as compress_session
+from .optimizer import Optimization as Optimization, run_optimization_passes as run_optimization_passes, ParetoPoint as ParetoPoint
 
-# ── Deep Intelligence Layer (Rewritten) ──
-from .simulation import CounterfactualSimulator, SimulationResult, SensitivityReport, MultiAblationResult
-from .learning import FailurePatternLearner, LearnedGuardrailRule
-from .bayesian import BayesianEpistemicNetwork, BeliefState, ConditionalProbabilityTable
+# ── Deep Intelligence Layer ──
+from .simulation import CounterfactualSimulator as CounterfactualSimulator, SimulationResult as SimulationResult, SensitivityReport as SensitivityReport, MultiAblationResult as MultiAblationResult
+from .learning import FailurePatternLearner as FailurePatternLearner, LearnedGuardrailRule as LearnedGuardrailRule
+from .bayesian import BayesianEpistemicNetwork as BayesianEpistemicNetwork, BeliefState as BeliefState, ConditionalProbabilityTable as ConditionalProbabilityTable
 
 # ── BehaviorOS v4.0 Intelligence Engines ──
 from .state_engine import (
-    BehavioralStateEngine, CognitivePhase, StateTransition,
-    CognitiveStateVector, CognitiveAnomaly,
+    BehavioralStateEngine as BehavioralStateEngine, CognitivePhase as CognitivePhase, StateTransition as StateTransition,
+    CognitiveStateVector as CognitiveStateVector, CognitiveAnomaly as CognitiveAnomaly,
 )
 from .causal import (
-    CausalReasoningEngine, CausalGraph, CausalStrength,
-    CausalLink, RootCause, InterventionResult,
+    CausalReasoningEngine as CausalReasoningEngine, CausalGraph as CausalGraph, CausalStrength as CausalStrength,
+    CausalLink as CausalLink, RootCause as RootCause, InterventionResult as InterventionResult,
 )
 from .genome import (
-    BehaviorGenome, extract_genome, compute_distance,
-    classify_phenotype, detect_drift, get_trait_stability,
-    DriftReport, TRAIT_NAMES,
+    BehaviorGenome as BehaviorGenome, extract_genome as extract_genome, compute_distance as compute_distance,
+    classify_phenotype as classify_phenotype, detect_drift as detect_drift, get_trait_stability as get_trait_stability,
+    DriftReport as DriftReport, TRAIT_NAMES as TRAIT_NAMES,
 )
 from .physics import (
-    BehavioralPhysicsEngine, BehavioralState, BehavioralForce,
-    MomentumVector, BehavioralEnergy, PhaseTransition, Attractor,
+    BehavioralPhysicsEngine as BehavioralPhysicsEngine, BehavioralState as BehavioralState, BehavioralForce as BehavioralForce,
+    MomentumVector as MomentumVector, BehavioralEnergy as BehavioralEnergy, PhaseTransition as PhaseTransition, Attractor as Attractor,
 )
 from .search import (
-    BehaviorSignature, compute_signature, compute_similarity,
-    search_similar, match_antipatterns, SignatureIndex,
-    SearchResult, AntipatternMatch,
+    BehaviorSignature as BehaviorSignature, compute_signature as compute_signature, compute_similarity as compute_similarity,
+    search_similar as search_similar, match_antipatterns as match_antipatterns, SignatureIndex as SignatureIndex,
+    SearchResult as SearchResult, AntipatternMatch as AntipatternMatch,
 )
 from .fleet import (
-    FleetIntelligenceEngine, AgentTopology, EmergentPattern,
-    FleetHealthReport, DelegationReport, CollectiveDriftReport,
+    FleetIntelligenceEngine as FleetIntelligenceEngine, AgentTopology as AgentTopology, EmergentPattern as EmergentPattern,
+    FleetHealthReport as FleetHealthReport, DelegationReport as DelegationReport, CollectiveDriftReport as CollectiveDriftReport,
 )
 from .evolution import (
-    EvolutionEngine, SessionOutcome, ImprovementRecommendation,
-    GenerationReport,
+    EvolutionEngine as EvolutionEngine, SessionOutcome as SessionOutcome, ImprovementRecommendation as ImprovementRecommendation,
+    GenerationReport as GenerationReport,
 )
 
 # ── BehaviorOS v5.0 / v6.0 Operating System Subsystems ──
-from .kernel import BehaviorKernel, KernelStepResult
-from .behavior_memory import BehavioralMemoryStore, BehavioralEpisode, EpisodeSearchResult
-from .behavior_db import BehavioralDatabase, BQLQueryResult, SessionRecord
-from .behavior_graph import UnifiedBehaviorGraph, BehaviorGraphNode, BehaviorGraphEdge, CognitiveNodeKind, CognitiveEdgeKind
-from .scheduler import BehaviorScheduler, AgentTask
-from .planner import BehaviorPlanner, VerifiedPlan, PlanStep
-from .compiler_v2 import BehaviorCompilerV2, CompiledDeploymentArtifact
-from .behavior_models import FailurePredictionModel, PlanningOptimizationModel, AnomalyClassificationModel, RecoveryRecommendationModel
-from .enterprise import Organization, Workspace, ComplianceAuditExporter
+from .kernel import BehaviorKernel as BehaviorKernel, KernelStepResult as KernelStepResult
+from .behavior_memory import BehavioralMemoryStore as BehavioralMemoryStore, BehavioralEpisode as BehavioralEpisode, EpisodeSearchResult as EpisodeSearchResult
+from .behavior_db import BehavioralDatabase as BehavioralDatabase, BQLQueryResult as BQLQueryResult, SessionRecord as SessionRecord
+from .behavior_graph import UnifiedBehaviorGraph as UnifiedBehaviorGraph, BehaviorGraphNode as BehaviorGraphNode, BehaviorGraphEdge as BehaviorGraphEdge, CognitiveNodeKind as CognitiveNodeKind, CognitiveEdgeKind as CognitiveEdgeKind
+from .scheduler import BehaviorScheduler as BehaviorScheduler, AgentTask as AgentTask
+from .planner import BehaviorPlanner as BehaviorPlanner, VerifiedPlan as VerifiedPlan, PlanStep as PlanStep
+from .compiler_v2 import BehaviorCompilerV2 as BehaviorCompilerV2, CompiledDeploymentArtifact as CompiledDeploymentArtifact
+from .behavior_models import FailurePredictionModel as FailurePredictionModel, PlanningOptimizationModel as PlanningOptimizationModel, AnomalyClassificationModel as AnomalyClassificationModel, RecoveryRecommendationModel as RecoveryRecommendationModel
+from .enterprise import Organization as Organization, Workspace as Workspace, ComplianceAuditExporter as ComplianceAuditExporter
 
 # ── BehaviorOS v6.0 The Intelligence Operating System ──
-from .ikernel import IntelligenceKernel, BehaviorProcess, ProcessState, ReasoningBudget, ContextWindowAllotment, ConcurrentThought
-from .memory_manager import HierarchicalMemoryManager, MemoryLayer, MemoryItem
-from .ifs import IntelligenceFileSystem, KnowledgeObject
-from .bproto import BProtoSession, BProtoPacket, BProtoMessageType
-from .bvm import BehaviorVirtualMachine, BVMInstruction, BVMOpcode, BVMExecutionResult
-from .bcontainer import BehaviorContainer, BehaviorPackageManager
-from .ik8s import IntelligenceKubernetes, AgentPod
-from .digi_org import DigitalOrganization, DigitalEmployee, AgentBudgetBundle
-from .civilization import CivilizationEngine, CivilizationStatus
+from .ikernel import IntelligenceKernel as IntelligenceKernel, BehaviorProcess as BehaviorProcess, ProcessState as ProcessState, ReasoningBudget as ReasoningBudget, ContextWindowAllotment as ContextWindowAllotment, ConcurrentThought as ConcurrentThought
+from .memory_manager import HierarchicalMemoryManager as HierarchicalMemoryManager, MemoryLayer as MemoryLayer, MemoryItem as MemoryItem
+from .ifs import IntelligenceFileSystem as IntelligenceFileSystem, KnowledgeObject as KnowledgeObject
+from .bproto import BProtoSession as BProtoSession, BProtoPacket as BProtoPacket, BProtoMessageType as BProtoMessageType
+from .bvm import BehaviorVirtualMachine as BehaviorVirtualMachine, BVMInstruction as BVMInstruction, BVMOpcode as BVMOpcode, BVMExecutionResult as BVMExecutionResult
+from .bcontainer import BehaviorContainer as BehaviorContainer, BehaviorPackageManager as BehaviorPackageManager
+from .ik8s import IntelligenceKubernetes as IntelligenceKubernetes, AgentPod as AgentPod
+from .digi_org import DigitalOrganization as DigitalOrganization, DigitalEmployee as DigitalEmployee, AgentBudgetBundle as AgentBudgetBundle
+from .civilization import CivilizationEngine as CivilizationEngine, CivilizationStatus as CivilizationStatus
+
 __all__ = [
     "init", "get_client", "reset", "instrument", "session", "intelligence", "VeriClient",
     "NodeKind", "EdgeKind", "RuntimeNode", "RuntimeEdge", "IRRef",
@@ -126,6 +163,11 @@ __all__ = [
     "IntelligenceKubernetes", "AgentPod",
     "DigitalOrganization", "DigitalEmployee", "AgentBudgetBundle",
     "CivilizationEngine", "CivilizationStatus",
+    "prediction", "intent", "compressor", "optimizer", "simulation", "learning", "bayesian",
+    "state_engine", "causal", "genome", "physics", "search", "fleet", "evolution",
+    "kernel", "behavior_memory", "behavior_db", "behavior_graph", "scheduler", "planner",
+    "compiler_v2", "behavior_models", "enterprise", "ikernel", "memory_manager", "ifs",
+    "bproto", "bvm", "bcontainer", "ik8s", "digi_org", "civilization", "ci_runner", "adapters",
 ]
 
 logger = logging.getLogger("veri")
@@ -145,27 +187,19 @@ def _load_yaml_config(path: str) -> dict:
         
         current_section = None
         for line in lines:
-            # Strip comments and whitespace
             line = line.split("#")[0].strip()
             if not line:
                 continue
-            
-            # Match top-level sections like "guardrails:"
             section_match = re.match(r"^(\w+):$", line)
             if section_match:
                 current_section = section_match.group(1)
                 config[current_section] = {}
                 continue
-            
-            # Match indented keys under a section
             indented_match = re.match(r"^(\w+):\s*([^\s]+)", line)
             if indented_match:
                 k = indented_match.group(1)
                 v = indented_match.group(2)
-                
-                # Check for nested values if we are inside a section
                 if current_section:
-                    # Clean quotes and parse numeric values
                     try:
                         if "." in v:
                             v = float(v)
@@ -190,26 +224,12 @@ def init(
     disabled: bool = False,
     escalation_enabled: bool = True,
 ) -> None:
-    """
-    Initializes the global VERI runtime client.
-    Loads settings from veri.yaml in the working directory if present.
-
-    Args:
-        api_key: VERI API key. Falls back to VERI_API_KEY env var.
-        endpoint: Gateway ingest URL.
-        gateway_endpoint: Gateway base URL (for escalation policy loading, etc.).
-        cost_limit: Maximum USD spend per session before L0 kill-switch.
-        call_limit: Maximum LLM calls per session before L0 kill-switch.
-        disabled: If True, SDK is inert — no events emitted, no guardrails.
-        escalation_enabled: If True, load and enforce escalation policies.
-    """
     global _global_client, _global_escalation_engine
 
     if _global_client is not None:
         logger.warning("VERI SDK is already initialized. Skipping redundant initialization.")
         return
 
-    # Attempt to load from veri.yaml configuration
     local_config = _load_yaml_config("veri.yaml")
     guardrail_config = local_config.get("guardrails", {})
     
@@ -230,7 +250,6 @@ def init(
         disabled=disabled,
     )
 
-    # Initialize Escalation Engine
     _global_escalation_engine = EscalationEngine(
         gateway_endpoint=gateway_endpoint,
         api_key=effective_key or "disabled_key",
@@ -246,7 +265,6 @@ def init(
 
 
 def get_client() -> VeriClient:
-    """Returns the global VeriClient. Raises if init() was not called."""
     global _global_client
     if _global_client is None:
         raise RuntimeError("VERI Runtime Client accessed before init() was invoked.")
@@ -254,7 +272,6 @@ def get_client() -> VeriClient:
 
 
 def reset() -> None:
-    """Tears down the global client. Useful for testing."""
     global _global_client, _global_escalation_engine
     if _global_client is not None:
         _global_client.shutdown()
@@ -263,11 +280,6 @@ def reset() -> None:
 
 
 def instrument(frameworks: List[str]) -> None:
-    """
-    Applies auto-instrumentation hooks across target frameworks.
-
-    Supported frameworks: "openai", "langchain", "crewai", "autogen", "llamaindex"
-    """
     from .patching import patch_runtime
     from .adapters import patch_crewai, patch_autogen, patch_llamaindex
 
@@ -286,9 +298,7 @@ def instrument(frameworks: List[str]) -> None:
             patch_runtime(framework, client)
 
 
-
 def session(session_id: str, agent_id: str, project_id: str):
-    """Shorthand context manager for creating a tracked agent session."""
     client = get_client()
     from .context import AgentSessionContext
     return AgentSessionContext(
@@ -302,61 +312,35 @@ def session(session_id: str, agent_id: str, project_id: str):
     )
 
 
-# ── BehaviorOS v4.0 Intelligence Pipeline ─────────────────────────
-
-
 def intelligence(
     nodes: List[RuntimeNode],
     edges: List[RuntimeEdge],
     budget: float = 5.0,
     session_id: str = "",
 ) -> dict:
-    """
-    Runs the full BehaviorOS v4.0 intelligence pipeline in a single call.
-
-    Returns a comprehensive intelligence report from all 7 engines:
-      - state: Cognitive state machine analysis
-      - causal: Causal reasoning and root cause analysis
-      - genome: Behavioral DNA extraction
-      - physics: Behavioral dynamics and forces
-      - predictions: Adaptive anomaly predictions
-      - optimizations: Compiler optimization opportunities
-      - search: Anti-pattern matching
-      - beliefs: Bayesian belief propagation
-    """
-    # 1. Behavioral State Engine
     state_engine = BehavioralStateEngine()
     state_engine.ingest_nodes(nodes)
     state_report = state_engine.to_dict()
 
-    # 2. Causal Reasoning Engine
     causal_engine = CausalReasoningEngine()
     causal_graph = causal_engine.build_causal_graph(nodes, edges)
-    # Find error nodes for root cause analysis
     error_nodes = [n for n in nodes if n.kind == NodeKind.ERROR]
     root_causes = []
-    for err in error_nodes[:3]:  # Analyze top 3 errors
+    for err in error_nodes[:3]:
         causes = causal_engine.find_root_causes(causal_graph, err.id, k=3)
         root_causes.extend([c.to_dict() for c in causes])
 
-    # 3. Behavior Genome
     genome = extract_genome(nodes, edges, session_id)
 
-    # 4. Behavioral Physics
     physics_engine = BehavioralPhysicsEngine()
     physics_report = physics_engine.to_dict(nodes)
 
-    # 5. Predictions
     predictions = run_predictive_analysis(nodes, budget)
-
-    # 6. Optimizations
     optimizations = run_optimization_passes(nodes, edges)
 
-    # 7. Behavioral Search (anti-pattern matching)
     signature = compute_signature(nodes, edges, session_id)
     antipatterns = match_antipatterns(signature)
 
-    # 8. Bayesian Beliefs
     bayesian = BayesianEpistemicNetwork()
     belief_states = bayesian.propagate_beliefs(nodes, edges)
 

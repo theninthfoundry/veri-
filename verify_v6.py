@@ -41,6 +41,7 @@ def run_v6_verification():
     mem_mgr.write(veri.MemoryLayer.L1_WORKING, "order_status", "Executing Order #991", tokens=200)
     mem_mgr.write(veri.MemoryLayer.L1_WORKING, "risk_params", "Volatility Index High", tokens=400)  # Causes L1 LRU eviction to L2
     read_item = mem_mgr.read(veri.MemoryLayer.L1_WORKING, "risk_params")
+    assert read_item is not None, "Failed to read L1 memory item"
     mem_stats = mem_mgr.get_memory_stats()
     print(f"  ✓ Read L1 item: key='{read_item.key}', value='{read_item.value}'")
     print(f"  ✓ Memory Cascade Stats: L1 items={mem_stats['l1_working']['items_count']}, L2 items={mem_stats['l2_session']['items_count']}")
@@ -51,6 +52,7 @@ def run_v6_verification():
     ifs.write("/sys/behavior/processes/bid_01/state", "RUNNING_OPTIMAL", object_type="state")
     ifs.write("/sys/behavior/goals/g_trading_01", "Achieve 5% Arbitrage Yield", object_type="goal")
     stat_res = ifs.stat("/sys/behavior/goals/g_trading_01")
+    assert stat_res is not None, "IFS stat failed"
     ls_res = ifs.ls("/sys/behavior")
     print(f"  ✓ IFS stat('/sys/behavior/goals/g_trading_01'): version={stat_res['version']}, author='{stat_res['author']}'")
     print(f"  ✓ IFS ls('/sys/behavior'): {len(ls_res)} objects found")
