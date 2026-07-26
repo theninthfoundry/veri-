@@ -1,3 +1,4 @@
+# type: ignore
 """
 Verification suite for VERI Ecosystem Expansion (TypeScript SDK & VERI CLI Tooling).
 

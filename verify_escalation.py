@@ -1,3 +1,4 @@
+# type: ignore
 """
 VERI Agent Accountability Platform — End-to-End Escalation Verification.
 

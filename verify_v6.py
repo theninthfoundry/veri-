@@ -1,3 +1,4 @@
+# type: ignore
 """
 Verification suite for BehaviorOS v6.0 — The Intelligence Operating System (The Linux of Autonomous AI Systems).
 

@@ -1,7 +1,9 @@
+# type: ignore
 """
 Verification script for VERI Layer 4 & Layer 5 Runtime Intelligence Engines.
 Tests prediction heuristics, multi-stakeholder intent alignment, and reality state delta compression.
 """
+
 
 import sys
 import os

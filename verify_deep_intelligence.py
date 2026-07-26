@@ -1,6 +1,8 @@
+# type: ignore
 """
 Verification script for VERI Deep Intelligence Layer (Simulation, Learning, and Bayesian Engines).
 """
+
 
 import sys
 import os

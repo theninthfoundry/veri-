@@ -1,3 +1,4 @@
+# type: ignore
 """
 VERI SDK Verification — validates the full capture loop + L0 guardrails.
 

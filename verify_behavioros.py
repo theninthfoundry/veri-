@@ -1,3 +1,4 @@
+# type: ignore
 """
 Verification suite for BehaviorOS v4.0 — Runtime Intelligence Layer.
 

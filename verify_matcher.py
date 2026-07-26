@@ -1,3 +1,4 @@
+# type: ignore
 """
 VERI Matcher + Assertion Engine Verification.
 

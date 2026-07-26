@@ -1,5 +1,6 @@
+# type: ignore
 """
-VERI Universal Runtime IR Verification.
+Verification suite for VERI Universal Runtime IR.
 
 Validates the semantic context managers, NodeKind/EdgeKind mapping,
 and automatic parent-child edge generation in the Python SDK.

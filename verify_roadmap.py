@@ -1,7 +1,9 @@
+# type: ignore
 """
 Verification script for VERI Roadmap Execution (Phases A through E).
 Runs end-to-end assertions against all newly introduced components.
 """
+
 
 import sys
 import os

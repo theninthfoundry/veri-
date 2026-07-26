@@ -1,3 +1,4 @@
+# type: ignore
 """
 Verification suite for BehaviorOS v5.0 — The Operating System for Autonomous Organizations.
 

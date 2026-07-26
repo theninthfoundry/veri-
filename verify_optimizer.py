@@ -1,7 +1,9 @@
+# type: ignore
 """
 Verification script for VERI Multi-Pass Runtime Optimization Compiler.
 Tests Redundant Reasoning, Unnecessary Retrieval, Serial-Parallelizable, and Dead Branch passes.
 """
+
 
 import sys
 import os
