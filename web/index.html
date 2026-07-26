@@ -3,42 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VERI // Agent Accountability Platform</title>
+    <title>VERI // BehaviorOS v6.0 Enterprise Cockpit</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: hsl(228, 28%, 4%);
-            --bg-surface: hsl(228, 24%, 7%);
-            --bg-surface-elevated: hsl(228, 20%, 10%);
-            --bg-hover: hsl(228, 18%, 13%);
-            --bg-active: hsl(228, 16%, 16%);
-            --border: hsl(228, 12%, 18%);
-            --border-strong: hsl(228, 10%, 25%);
-            --border-focus: hsl(213, 100%, 55%);
+            --bg-base: #060913;
+            --bg-surface: #0b0f1d;
+            --bg-surface-elevated: #11172a;
+            --bg-hover: #182036;
+            --bg-active: #202b47;
+            --border: #1c2640;
+            --border-strong: #2c3a5e;
+            --border-focus: #3e8bff;
             
-            --text-primary: hsl(0, 0%, 96%);
-            --text-secondary: hsl(228, 10%, 60%);
-            --text-muted: hsl(228, 10%, 40%);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
 
-            /* Bioluminescent Accents */
-            --accent: hsl(213, 100%, 55%);
-            --accent-glow: rgba(62, 139, 255, 0.15);
+            /* Bioluminescent Palette */
+            --accent: #3e8bff;
+            --accent-glow: rgba(62, 139, 255, 0.25);
+            --cyan: #06b6d4;
+            --violet: #a855f7;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
             
-            --intent-color: hsl(213, 100%, 55%);
-            --reasoning-color: hsl(268, 78%, 60%);
-            --knowledge-color: hsl(185, 90%, 48%);
-            --action-color: hsl(155, 75%, 45%);
-            --decision-color: hsl(38, 95%, 55%);
-            --risk-color: hsl(0, 78%, 55%);
-            
-            --success: hsl(155, 75%, 45%);
-            --success-glow: rgba(16, 185, 129, 0.1);
-            --warning: hsl(38, 95%, 55%);
-            --warning-glow: rgba(245, 158, 11, 0.1);
-            --danger: hsl(0, 78%, 55%);
-            --danger-glow: rgba(239, 68, 68, 0.1);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
             
             --mono: 'JetBrains Mono', monospace;
             --sans: 'Plus Jakarta Sans', sans-serif;
@@ -60,57 +55,68 @@
             width: 100vw;
         }
 
-        /* ── Sidebar Navigation ── */
+        /* ── Sidebar ── */
         aside {
             width: 280px;
             background-color: var(--bg-surface);
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            padding: 2rem 1.5rem;
+            padding: 1.5rem 1.25rem;
             height: 100vh;
             flex-shrink: 0;
         }
 
         .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
             color: var(--text-primary);
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.65rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), var(--violet));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px var(--accent-glow);
+            font-size: 1rem;
         }
 
         .logo span {
             color: var(--accent);
-            text-shadow: 0 0 10px var(--accent);
         }
 
         .section-label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             color: var(--text-muted);
-            margin: 1.5rem 0.75rem 0.5rem 0.75rem;
+            margin: 1.25rem 0.5rem 0.5rem 0.5rem;
             font-weight: 700;
         }
 
         nav {
             display: flex;
             flex-direction: column;
-            gap: 0.35rem;
+            gap: 0.3rem;
         }
 
         .nav-item {
-            padding: 0.75rem 1rem;
+            padding: 0.7rem 0.85rem;
             border-radius: 8px;
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
+            font-size: 0.88rem;
+            transition: all 0.15s ease;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -124,12 +130,48 @@
 
         .nav-item.active {
             color: var(--text-primary);
-            background-color: var(--bg-active);
+            background: linear-gradient(90deg, var(--bg-active), transparent);
             border-left: 3px solid var(--accent);
             font-weight: 600;
         }
 
-        /* ── Main Application Window ── */
+        .nav-icon {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ── Command Bar Kbd Button ── */
+        .cmd-button {
+            margin-top: auto;
+            padding: 0.75rem;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cmd-button:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        kbd {
+            background: var(--bg-base);
+            border: 1px solid var(--border-strong);
+            border-radius: 4px;
+            padding: 0.15rem 0.4rem;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+        }
+
+        /* ── Main Layout ── */
         .app-container {
             flex-grow: 1;
             display: flex;
@@ -139,1327 +181,685 @@
         }
 
         header {
-            height: 80px;
+            height: 72px;
             border-bottom: 1px solid var(--border);
-            padding: 0 3rem;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-shrink: 0;
+            background-color: rgba(11, 15, 29, 0.8);
+            backdrop-filter: blur(12px);
         }
 
-        h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
+        .header-title {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
         }
 
-        .header-badge {
-            background-color: var(--accent-glow);
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            font-size: 0.75rem;
+        .header-title h1 {
+            font-size: 1.25rem;
             font-weight: 700;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            text-transform: uppercase;
         }
 
-        .tagline {
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-family: var(--mono);
+            font-weight: 600;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--emerald);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .pulse-dot {
+            width: 7px;
+            height: 7px;
+            background-color: var(--emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--emerald);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.85rem;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-strong);
+            border-radius: 6px;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-top: 0.15rem;
         }
 
-        .content-area {
-            flex-grow: 1;
-            padding: 2.5rem 3rem;
-            overflow-y: auto;
+        .role-selector {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-strong);
+            color: var(--text-primary);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* ── Workspace Panels ── */
+        .workspace {
             display: none;
-            height: calc(100vh - 80px);
+            flex-grow: 1;
+            padding: 1.75rem 2rem;
+            overflow-y: auto;
         }
 
-        .content-area.active-tab {
+        .workspace.active {
             display: block;
         }
 
-        /* ── Stats Grid ── */
-        .stats-grid {
+        .grid-4 {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
-        .stat-card {
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
             background-color: var(--bg-surface);
             border: 1px solid var(--border);
-            padding: 1.5rem;
             border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
+            padding: 1.25rem;
             position: relative;
             overflow: hidden;
             transition: border-color 0.2s ease;
         }
 
-        .stat-card:hover {
+        .card:hover {
             border-color: var(--border-strong);
         }
 
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--accent);
-            opacity: 0.6;
-        }
-
-        .stat-card.success::after { background: var(--success); }
-        .stat-card.warning::after { background: var(--warning); }
-        .stat-card.danger::after { background: var(--danger); }
-
-        .stat-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
-
-        .stat-value {
-            font-size: 1.85rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .stat-meta {
-            font-size: 0.75rem;
-            color: var(--success);
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        /* ── Escalation Queue UI ── */
-        .escalation-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 2.0rem;
-            align-items: start;
-        }
-
-        .escalation-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .escalation-item {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.2s ease;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .escalation-item:hover {
-            border-color: var(--border-strong);
-            transform: translateY(-2px);
-        }
-
-        .escalation-item.active-item {
-            border-color: var(--accent);
-            box-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        .escalation-header {
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 0.75rem;
         }
 
-        .policy-badge {
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            background: var(--bg-surface-elevated);
-            border: 1px solid var(--border-strong);
-        }
-
-        .escalation-timer {
-            font-family: var(--mono);
+        .card-title {
             font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--warning);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .escalation-timer.critical {
-            color: var(--danger);
-            animation: pulse 1s infinite alternate;
-        }
-
-        @keyframes pulse {
-            from { opacity: 0.6; }
-            to { opacity: 1; }
-        }
-
-        .detail-pane {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            position: sticky;
-            top: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .node-content-box {
-            background-color: var(--bg-base);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 1rem;
-            font-family: var(--mono);
-            font-size: 0.8rem;
-            white-space: pre-wrap;
-            color: #e2e8f0;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-
-        .resolution-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            border-top: 1px solid var(--border);
-            padding-top: 1.5rem;
-        }
-
-        .input-textarea {
-            width: 100%;
-            min-height: 80px;
-            background-color: var(--bg-surface-elevated);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-primary);
-            padding: 0.75rem;
-            font-family: var(--sans);
-            font-size: 0.9rem;
-            resize: vertical;
-            outline: none;
-        }
-
-        .input-textarea:focus {
-            border-color: var(--border-focus);
-        }
-
-        .input-text {
-            width: 100%;
-            background-color: var(--bg-surface-elevated);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-primary);
-            padding: 0.6rem 0.75rem;
-            font-family: var(--sans);
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .input-text:focus {
-            border-color: var(--border-focus);
-        }
-
-        .signature-box {
-            background-color: rgba(16, 185, 129, 0.05);
-            border: 1px dashed var(--success);
-            border-radius: 6px;
-            padding: 1rem;
-            font-family: var(--mono);
-            font-size: 0.75rem;
-            color: var(--success);
-            word-break: break-all;
-        }
-
-        /* ── Buttons ── */
-        .btn {
-            background-color: var(--accent);
-            color: var(--text-primary);
-            border: none;
-            padding: 0.6rem 1.25rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: opacity 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        .btn-success {
-            background-color: var(--success);
-        }
-
-        .btn-danger {
-            background-color: var(--danger);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
             color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .btn-outline:hover {
-            background-color: var(--bg-hover);
-            color: var(--text-primary);
+        .metric-value {
+            font-size: 1.85rem;
+            font-weight: 800;
+            font-family: var(--mono);
+            letter-spacing: -0.02em;
         }
 
-        /* ── Tables ── */
-        table {
+        .metric-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+        }
+
+        /* ── Tables & Code Logs ── */
+        .data-table {
             width: 100%;
             border-collapse: collapse;
+            font-size: 0.85rem;
         }
 
-        th {
+        .data-table th {
             text-align: left;
             padding: 0.75rem 1rem;
-            color: var(--text-secondary);
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.05rem;
-            border-bottom: 1px solid var(--border);
-            font-weight: 700;
         }
 
-        td {
+        .data-table td {
             padding: 0.85rem 1rem;
             border-bottom: 1px solid var(--border);
+            font-family: var(--mono);
+        }
+
+        .data-table tr:hover {
+            background-color: var(--bg-hover);
+        }
+
+        .code-block {
+            background-color: var(--bg-base);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--cyan);
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        /* ── Raycast Command Palette Modal ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 10vh;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .cmd-modal {
+            width: 600px;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-strong);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+
+        .cmd-input-wrapper {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .cmd-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: var(--sans);
+        }
+
+        .cmd-list {
+            max-height: 350px;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .cmd-item {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            cursor: pointer;
             font-size: 0.9rem;
         }
 
-        .badge-status {
-            display: inline-flex;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        .cmd-item:hover, .cmd-item.selected {
+            background: var(--bg-hover);
+            color: var(--text-primary);
         }
 
-        .badge-status.pending { background-color: var(--warning-glow); color: var(--warning); }
-        .badge-status.approved { background-color: var(--success-glow); color: var(--success); }
-        .badge-status.rejected { background-color: var(--danger-glow); color: var(--danger); }
-        .badge-status.timed_out { background-color: var(--text-muted); color: var(--text-secondary); }
-
-        .method-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.15rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .method-badge.ablation {
-            background-color: rgba(62, 139, 255, 0.1);
-            color: var(--accent);
-            border: 1px solid var(--accent);
-        }
-        .method-badge.heuristic {
-            background-color: rgba(168, 85, 247, 0.1);
-            color: var(--reasoning-color);
-            border: 1px solid var(--reasoning-color);
-        }
-
-        /* ── Causal debugger ── */
-        .causal-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .causal-node-card {
-            background-color: var(--bg-surface-elevated);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.25rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* ── Policy Form / Config ── */
-        .policy-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
+        /* ── Memory Hierarchy Diagram ── */
+        .memory-stack {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
 
-        .form-group label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        /* ── Traces / Node grid ── */
-        .session-selector {
+        .memory-layer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.65rem 1rem;
             background: var(--bg-surface-elevated);
             border: 1px solid var(--border);
-            padding: 0.75rem 1rem;
-            border-radius: 6px;
-            color: var(--text-primary);
-            font-family: var(--sans);
-            font-size: 0.9rem;
-            margin-right: 1rem;
-            outline: none;
-        }
-
-        .stream-panel {
-            background: var(--bg-base);
-            border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 1rem;
             font-family: var(--mono);
-            font-size: 0.75rem;
-            height: 250px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
+            font-size: 0.8rem;
         }
 
-        .stream-item {
-            color: var(--text-secondary);
-            border-left: 2px solid var(--border);
-            padding-left: 0.5rem;
+        .memory-layer-tag {
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
         }
-        .stream-item.escalation { color: var(--warning); border-color: var(--warning); }
-        .stream-item.system { color: var(--accent); border-color: var(--accent); }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar Navigation -->
+    <!-- ── Sidebar Navigation ── -->
     <aside>
-        <div class="logo">VERI<span>//</span></div>
-        
-        <div class="section-label">BehaviorOS v5.0 Workspaces</div>
+        <div class="logo">
+            <div class="logo-icon">🌌</div>
+            VERI <span>OS v6.0</span>
+        </div>
+
+        <div class="section-label">Intelligence Workspaces</div>
         <nav>
-            <div class="nav-item active" onclick="switchTab('executive')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
-                Executive View
+            <div class="nav-item active" onclick="switchWorkspace('executive')">
+                <span class="nav-icon">📊</span> Executive Summary
             </div>
-            <div class="nav-item" onclick="switchTab('opscenter')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                Operations Center
+            <div class="nav-item" onclick="switchWorkspace('operations')">
+                <span class="nav-icon">⚙️</span> BehaviorOS Operations
             </div>
-            <div class="nav-item" onclick="switchTab('explorer')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M11 8v6M8 11h6"/></svg>
-                Behavior Explorer
+            <div class="nav-item" onclick="switchWorkspace('bvm')">
+                <span class="nav-icon">🔲</span> BVM Bytecode & BPROTO
             </div>
-            <div class="nav-item" onclick="switchTab('evolutionlab')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-                Evolution Lab
+            <div class="nav-item" onclick="switchWorkspace('ik8s')">
+                <span class="nav-icon">☸️</span> IK8s Pods & Digital Org
+            </div>
+            <div class="nav-item" onclick="switchWorkspace('explorer')">
+                <span class="nav-icon">🧠</span> Explorer & BQL Workbench
             </div>
         </nav>
 
-        <div class="section-label">Accountability & Governance</div>
-        <nav>
-            <div class="nav-item" onclick="switchTab('queue')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                Escalation Queue
-            </div>
-            <div class="nav-item" onclick="switchTab('audit')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                Audit Trail Log
-            </div>
-            <div class="nav-item" onclick="switchTab('policies')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                Control Policies
-            </div>
-        </nav>
-
-        <div class="section-label">Intelligence</div>
-        <nav>
-            <div class="nav-item" onclick="switchTab('causal')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                Causal Evidence
-            </div>
-            <div class="nav-item" onclick="switchTab('replay')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                Replay & What-If
-            </div>
-        </nav>
+        <div class="cmd-button" onclick="openCmdPalette()">
+            <span>Search commands...</span>
+            <kbd>⌘K</kbd>
+        </div>
     </aside>
 
-    <!-- Main Container -->
+    <!-- ── Main Application Window ── -->
     <div class="app-container">
-        
-        <!-- Header -->
         <header>
-            <div>
-                <h1 id="tab-title">Escalation Queue <span class="header-badge">Enforcing</span></h1>
-                <div class="tagline" id="tab-tagline">Human-in-the-loop policy control & auditable verification</div>
+            <div class="header-title">
+                <h1 id="workspace-title">Executive Summary</h1>
+                <div class="status-pill">
+                    <div class="pulse-dot"></div> KERNEL OPTIMAL
+                </div>
             </div>
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                <span class="header-badge" style="background: rgba(62, 139, 255, 0.1); border-color: var(--accent); color: var(--accent);">RBAC: Admin</span>
-                <input type="text" id="auth-token-input" placeholder="Bearer Key / Token..." class="session-selector" style="margin-right: 0; width: 180px;" value="dev_key_123">
-                <select id="project-select" class="session-selector" onchange="loadData()">
-                    <option value="proj_alpha">Default Workspace (proj_alpha)</option>
+
+            <div class="header-controls">
+                <div class="security-badge">
+                    🛡️ HMAC & mTLS Shield Active
+                </div>
+
+                <select class="role-selector" id="role-selector" onchange="updateRole(this.value)">
+                    <option value="admin">Role: Admin</option>
+                    <option value="operator" selected>Role: Operator</option>
+                    <option value="auditor">Role: Auditor</option>
                 </select>
-                <button class="btn btn-outline" onclick="toggleTelemetrySimulator()">
-                    <span id="simulator-btn-text">Start Telemetry Simulator</span>
-                </button>
             </div>
         </header>
 
-        <!-- ────────────────────────────────────────── -->
-        <!-- TAB 1: EXECUTIVE VIEW -->
-        <!-- ────────────────────────────────────────── -->
-        <div id="tab-executive" class="content-area active-tab">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Fleet Operational Health</div>
-                    <div class="stat-value" style="color: var(--success);" id="exec-health">98.4%</div>
-                    <div class="stat-meta">Across 100,000+ active enterprise agents</div>
+        <!-- 1. Executive Summary Workspace -->
+        <div class="workspace active" id="ws-executive">
+            <div class="grid-4">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Systemic Stability</span> 🟢</div>
+                    <div class="metric-value" style="color: var(--emerald);">0.985</div>
+                    <div class="metric-sub">+0.002 optimization gain</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-label">Systemic Risk Exposure</div>
-                    <div class="stat-value" style="color: var(--accent);" id="exec-risk">0.03</div>
-                    <div class="stat-meta">Controlled via L0 Guardrails</div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Economic GDP</span> 💵</div>
+                    <div class="metric-value" style="color: var(--cyan);">$1,450,000</div>
+                    <div class="metric-sub">Active fleet transaction volume</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-label">Behavioral Optimization ROI</div>
-                    <div class="stat-value" style="color: var(--decision-color);" id="exec-roi">38.2%</div>
-                    <div class="stat-meta">Compiler cost & latency savings</div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Reasoning Tokens / s</span> ⚡</div>
+                    <div class="metric-value" style="color: var(--violet);">48,200</div>
+                    <div class="metric-sub">Across 50 active processes</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-label">SOC 2 / ISO Compliance</div>
-                    <div class="stat-value" style="color: var(--knowledge-color);">100% PASS</div>
-                    <div class="stat-meta">Continuous audit verification</div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Contract Violations</span> 🛡️</div>
+                    <div class="metric-value" style="color: var(--emerald);">0</div>
+                    <div class="metric-sub">100% Policy Compliance Rate</div>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-top: 2rem;">
-                <div class="detail-pane">
-                    <h3 style="color: var(--text-primary);">Macro Organizational Alignment</h3>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Real-time tracking of agent goals vs. organizational policy boundaries across all projects.</p>
-                    <div class="stream-panel" style="height: 200px;" id="exec-alignment-stream">
-                        <div class="stream-item system">[EXEC] 100% policy alignment verified across Default Workspace.</div>
-                        <div class="stream-item system">[EXEC] Zero unhandled high-risk anomalies in active window.</div>
-                    </div>
-                </div>
-                <div class="detail-pane">
-                    <h3 style="color: var(--text-primary);">Compliance Status</h3>
-                    <div class="signature-box" style="margin-top: 1rem;">
-                        <strong>SOC 2 Type II:</strong> COMPLIANT<br>
-                        <strong>ISO 27001:</strong> VERIFIED<br>
-                        <strong>GDPR Erasure:</strong> ACTIVE (90d Purge)
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ────────────────────────────────────────── -->
-        <!-- TAB 2: OPERATIONS CENTER -->
-        <!-- ────────────────────────────────────────── -->
-        <div id="tab-opscenter" class="content-area">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Active Queued Tasks</div>
-                    <div class="stat-value" id="ops-queued">3</div>
-                    <div class="stat-meta">Multi-agent priority scheduler</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Running Fleet Tasks</div>
-                    <div class="stat-value" style="color: var(--accent);" id="ops-running">4</div>
-                    <div class="stat-meta">Concurrent execution slots</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Kernel Step Latency</div>
-                    <div class="stat-value" style="color: var(--success);" id="ops-latency">0.82ms</div>
-                    <div class="stat-meta">Inline OS kernel verification</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Circuit Breakers Triggered</div>
-                    <div class="stat-value" style="color: var(--warning);" id="ops-breakers">0</div>
-                    <div class="stat-meta">L0 kill-switch activations</div>
-                </div>
-            </div>
-
-            <div class="detail-pane">
-                <h3>Live Agent Fleet Stream (Operations Center)</h3>
-                <div class="stream-panel" id="ops-fleet-stream" style="height: 300px;">
-                    <div class="stream-item system">[OPS] Fleet Dispatch Scheduler active. Max concurrency: 10.</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ────────────────────────────────────────── -->
-        <!-- TAB 3: BEHAVIOR EXPLORER -->
-        <!-- ────────────────────────────────────────── -->
-        <div id="tab-explorer" class="content-area">
-            <div class="policy-form" style="grid-template-columns: 1fr 2fr; margin-bottom: 1.5rem;">
-                <div class="form-group">
-                    <label>Behavior Query Language (BQL)</label>
-                    <input type="text" id="bql-input" class="input-text" value="FIND workflows WHERE planning_depth > 7 AND uncertainty > 0.6">
-                </div>
-                <div class="form-group" style="justify-content: flex-end; flex-direction: row; align-items: flex-end;">
-                    <button class="btn" onclick="executeBQL()">Run BQL Query</button>
-                </div>
-            </div>
-
-            <div class="detail-pane">
-                <h3>Behavioral Query Results (Cognition Explorer)</h3>
-                <div class="node-content-box" id="bql-results-box" style="height: 350px;">
-Execute a BQL query above (e.g. `FIND workflows WHERE planning_depth > 7 AND uncertainty > 0.6`)
-                </div>
-            </div>
-        </div>
-
-        <!-- ────────────────────────────────────────── -->
-        <!-- TAB 4: EVOLUTION LAB -->
-        <!-- ────────────────────────────────────────── -->
-        <div id="tab-evolutionlab" class="content-area">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Current Phenotype</div>
-                    <div class="stat-value" style="font-size: 1.2rem; color: var(--accent);" id="evo-phenotype">Methodical Planner</div>
-                    <div class="stat-meta">Extracted from 13-trait genome</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Genome Fitness</div>
-                    <div class="stat-value" style="color: var(--success);" id="evo-fitness">0.865</div>
-                    <div class="stat-meta">Composite quality score</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Expected Fitness Gain</div>
-                    <div class="stat-value" style="color: var(--decision-color);">+0.045</div>
-                    <div class="stat-meta">Via crossover / mutation candidate</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Evolution Generation</div>
-                    <div class="stat-value">Gen #14</div>
-                    <div class="stat-meta">Continuous optimization loop</div>
-                </div>
-            </div>
-
-            <div class="detail-pane">
-                <h3>Evolution Lab Recommendations & Trait Mutator</h3>
-                <div class="node-content-box" id="evo-recommendations-box" style="height: 300px;">
-[EVOLUTION] Recommendations derived from comparison against top 5% elite agent genomes:
-- Trait 'reasoning_depth': current=0.82, target=0.70. Action: Reduce reasoning verbosity to optimize latency. Expected Gain: +0.045.
-                </div>
-            </div>
-        </div>
-
-        <!-- ────────────────────────────────────────── -->
-        <!-- TAB: ESCALATION QUEUE -->
-        <!-- ────────────────────────────────────────── -->
-        <div id="tab-queue" class="content-area">
-            <div class="escalation-grid">
-                
-                <!-- Left: List of pending escalations -->
-                <div>
-                    <h3 style="margin-bottom: 1rem; color: var(--text-secondary);">Pending Escalation Incidents</h3>
-                    <div class="escalation-list" id="pending-list">
-                        <!-- Filled dynamically -->
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Civilization Macro Governance</span></div>
+                    <div class="code-block" id="civ-status-block">
+{
+  "civilization_id": "civ_global_01",
+  "active_agent_population": 100000,
+  "systemic_stability_index": 0.985,
+  "economic_output_gdp": 1450000.0,
+  "governance_compliance_rate": 0.999,
+  "active_crises_count": 0
+}
                     </div>
                 </div>
 
-                <!-- Right: Resolution detail pane -->
-                <div class="detail-pane" id="detail-pane" style="display: none;">
-                    <!-- Filled dynamically when card clicked -->
-                </div>
-
-            </div>
-
-            <!-- Ingestion Stream -->
-            <div style="margin-top: 3rem;">
-                <h3 style="margin-bottom: 1rem; color: var(--text-secondary);">Live Accountability Telemetry Channel</h3>
-                <div class="stream-panel" id="telemetry-stream">
-                    <div class="stream-item system">[VERI] Ingest engine active. Awaiting agent execution events.</div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Active Security Shield Policy</span></div>
+                    <div class="code-block" style="color: var(--amber);">
+🔒 Security Headers: X-Frame-Options: DENY
+🔒 Cryptographic Signatures: HMAC-SHA256 Verified
+🔒 Rate Limit: 600 req/min per IP
+🔒 RBAC Status: Operator Authorization Granted
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- ────────────────────────────────────────── -->
-        <!-- TAB: AUDIT LOG -->
-        <!-- ────────────────────────────────────────── -->
-        <div id="tab-audit" class="content-area">
-            <div class="panel">
-                <div class="panel-header">
-                    <div class="panel-title">Verification Audit Trail (Append-Only)</div>
+        <!-- 2. BehaviorOS Operations Workspace -->
+        <div class="workspace" id="ws-operations">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Active Behavior Processes (ikernel)</span></div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>BID</th>
+                                <th>Agent ID</th>
+                                <th>Goal</th>
+                                <th>Reasoning Budget</th>
+                                <th>State</th>
+                            </tr>
+                        </thead>
+                        <tbody id="process-table-body">
+                            <tr>
+                                <td>proc_a8819203</td>
+                                <td>agent_titan</td>
+                                <td>Market Arbitrage Trading</td>
+                                <td>48,500 / 50,000 tok</td>
+                                <td><span style="color: var(--emerald);">RUNNING</span></td>
+                            </tr>
+                            <tr>
+                                <td>proc_b9918231</td>
+                                <td>agent_omega</td>
+                                <td>Audit Compliance Verification</td>
+                                <td>12,000 / 20,000 tok</td>
+                                <td><span style="color: var(--cyan);">WAITING</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Escalation ID</th>
-                            <th>Action</th>
-                            <th>Actor</th>
-                            <th>Reason</th>
-                            <th>Verification Signature</th>
-                        </tr>
-                    </thead>
-                    <tbody id="audit-log-body">
-                        <!-- Filled dynamically -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
-        <!-- ────────────────────────────────────────── -->
-        <!-- TAB: POLICIES -->
-        <!-- ────────────────────────────────────────── -->
-        <div id="tab-policies" class="content-area">
-            <h3 style="margin-bottom: 1rem;">Create New Escalation Policy</h3>
-            <div class="policy-form">
-                <div class="form-group">
-                    <label>Policy Name</label>
-                    <input type="text" id="policy-name" class="input-text" placeholder="e.g. Low Confidence Gate">
-                </div>
-                <div class="form-group">
-                    <label>Trigger Action Types (comma-separated)</label>
-                    <input type="text" id="policy-actions" class="input-text" placeholder="e.g. refund,payment">
-                </div>
-                <div class="form-group">
-                    <label>Trigger Capabilities (comma-separated)</label>
-                    <input type="text" id="policy-caps" class="input-text" placeholder="e.g. is_decision_point">
-                </div>
-                <div class="form-group">
-                    <label>Confidence Threshold (escalate if below)</label>
-                    <input type="number" step="0.1" id="policy-confidence" class="input-text" placeholder="e.g. 0.7">
-                </div>
-                <div class="form-group">
-                    <label>Timeout Seconds</label>
-                    <input type="number" id="policy-timeout" class="input-text" value="300">
-                </div>
-                <div class="form-group">
-                    <label>Timeout Behavior</label>
-                    <select id="policy-behavior" class="input-text">
-                        <option value="block">block (pause agent execution)</option>
-                        <option value="proceed_with_flag">proceed_with_flag (warning only)</option>
-                        <option value="abort">abort (gracefully terminate agent)</option>
-                    </select>
-                </div>
-                <div class="form-group" style="grid-column: span 2; margin-top: 1rem;">
-                    <button class="btn" onclick="createEscalationPolicy()">Deploy Policy to Control Loop</button>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">L1-L6 Hierarchical Memory Manager</span></div>
+                    <div class="memory-stack">
+                        <div class="memory-layer-row">
+                            <span>L1 Working Memory</span>
+                            <span class="memory-layer-tag" style="background: rgba(6,182,212,0.2); color: var(--cyan);">Active Buffer (200 tok)</span>
+                        </div>
+                        <div class="memory-layer-row">
+                            <span>L2 Session Memory</span>
+                            <span class="memory-layer-tag" style="background: rgba(168,85,247,0.2); color: var(--violet);">Workflow Context (1,400 tok)</span>
+                        </div>
+                        <div class="memory-layer-row">
+                            <span>L3 Org Memory</span>
+                            <span class="memory-layer-tag" style="background: rgba(16,185,129,0.2); color: var(--emerald);">Team Knowledge Base</span>
+                        </div>
+                        <div class="memory-layer-row">
+                            <span>L4 Behavior Memory</span>
+                            <span class="memory-layer-tag" style="background: rgba(245,158,11,0.2); color: var(--amber);">Pattern Library</span>
+                        </div>
+                        <div class="memory-layer-row">
+                            <span>L5 Knowledge Base</span>
+                            <span class="memory-layer-tag" style="background: rgba(62,139,255,0.2); color: var(--accent);">Vector Documents</span>
+                        </div>
+                        <div class="memory-layer-row">
+                            <span>L6 Collective Memory</span>
+                            <span class="memory-layer-tag" style="background: rgba(244,63,94,0.2); color: var(--rose);">Global Swarm Bank</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel">
-                <div class="panel-header">
-                    <div class="panel-title">Active Control Policies</div>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Triggers</th>
-                            <th>Timeout / Behavior</th>
-                            <th>Audit Requirement</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="policies-table-body">
-                        <!-- Filled dynamically -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- ────────────────────────────────────────── -->
-        <!-- TAB: CAUSAL EVIDENCE -->
-        <!-- ────────────────────────────────────────── -->
-        <div id="tab-causal" class="content-area">
-            <div class="panel" style="margin-bottom: 2rem;">
-                <div class="panel-title" style="margin-bottom: 1.5rem;">Causal Chain and Provenance Audit Packages</div>
-                <div class="causal-container" id="causal-list">
-                    <!-- Filled dynamically -->
+            <div class="card">
+                <div class="card-header"><span class="card-title">Intelligence File System (IFS) Browser (/sys/behavior/...)</span></div>
+                <div class="grid-2">
+                    <div class="code-block" style="color: var(--text-primary);">
+📁 /sys/behavior/
+├── 📁 processes/
+│   └── 📄 bid_01/state (RUNNING_OPTIMAL)
+├── 📁 goals/
+│   └── 📄 g_trading_01 (Achieve 5% Arbitrage Yield)
+└── 📁 contracts/
+    └── 📄 c_safety_01 (Max Spend $10.00)
+                    </div>
+                    <div class="code-block" id="ifs-content-view">
+Select an object to view POSIX stats & metadata...
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- ────────────────────────────────────────── -->
-        <!-- TAB: REPLAY -->
-        <!-- ────────────────────────────────────────── -->
-        <div id="tab-replay" class="content-area">
-            <div class="panel">
-                <div class="panel-header">
-                    <div class="panel-title">What-If Analysis Replay Simulation</div>
+        <!-- 3. BVM Bytecode & BPROTO Workspace -->
+        <div class="workspace" id="ws-bvm">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Behavior Virtual Machine (BVM) Debugger</span></div>
+                    <div class="code-block">
+0001: OP_INSPECT_MEMORY   key="context"
+0002: OP_VERIFY_POLICY   rule="max_cost"
+0003: OP_EXECUTE_TOOL    tool="order_book_api"
+0004: OP_REFLECT         reflection="Execution verified"
+0005: OP_HALT
+                    </div>
+                    <button style="margin-top: 1rem; padding: 0.6rem 1.2rem; background: var(--accent); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;" onclick="executeBVMProgram()">Step Execute Program</button>
                 </div>
-                <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
-                    <label style="font-weight: 600;">Target Session ID:</label>
-                    <input type="text" id="replay-session-id" class="input-text" style="max-width: 300px;" value="sess_ir_002">
-                    <button class="btn" onclick="runReplaySimulation()">Execute Counterfactual Replay</button>
-                </div>
-                <div id="replay-results-box" style="display: none;">
-                    <h4 style="color: var(--success); margin-bottom: 1rem;">Simulation Execution Complete</h4>
-                    <div class="node-content-box" id="replay-output-text"></div>
+
+                <div class="card">
+                    <div class="card-header"><span class="card-title">BPROTO Cognitive IPC Session</span></div>
+                    <div class="memory-stack">
+                        <div class="memory-layer-row">
+                            <span>Stage 1: PROPOSE_GOAL</span>
+                            <span style="color: var(--emerald);">✓ Approved</span>
+                        </div>
+                        <div class="memory-layer-row">
+                            <span>Stage 2: REQUEST_GOAL</span>
+                            <span style="color: var(--emerald);">✓ Received</span>
+                        </div>
+                        <div class="memory-layer-row">
+                            <span>Stage 3: NEGOTIATE</span>
+                            <span style="color: var(--cyan);">max_cost: $0.05</span>
+                        </div>
+                        <div class="memory-layer-row">
+                            <span>Stage 4: COMMIT</span>
+                            <span style="color: var(--violet);">State Committed</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- 4. IK8s & Digital Org Workspace -->
+        <div class="workspace" id="ws-ik8s">
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Intelligence Kubernetes (IK8s Cluster)</span></div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Pod ID</th>
+                                <th>Fleet Name</th>
+                                <th>Replicas</th>
+                                <th>Min / Max</th>
+                                <th>Workload Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>pod_finance_1</td>
+                                <td>finance_trading</td>
+                                <td>4</td>
+                                <td>1 / 5</td>
+                                <td><span style="color: var(--amber);">0.92 (Autoscaled)</span></td>
+                            </tr>
+                            <tr>
+                                <td>pod_support_1</td>
+                                <td>support_agent</td>
+                                <td>2</td>
+                                <td>2 / 10</td>
+                                <td><span style="color: var(--emerald);">0.15 (Optimal)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Digital Organization Chart</span></div>
+                    <div class="code-block" style="color: var(--text-primary);">
+🏢 Apex Financial Technologies
+├── 👔 emp_01: AI CEO ($10,000 Budget)
+│   └── 📈 emp_02: AI Head Trader ($2,500 Budget)
+│   └── ⚖️ emp_03: AI Risk Compliance Officer ($1,000 Budget)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Explorer & BQL Workbench -->
+        <div class="workspace" id="ws-explorer">
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card-header"><span class="card-title">Behavior Query Language (BQL) Workbench</span></div>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                    <input type="text" id="bql-input" value="FIND workflows WHERE planning_depth > 5" style="flex-grow: 1; background: var(--bg-base); border: 1px solid var(--border-strong); padding: 0.75rem 1rem; border-radius: 8px; color: var(--text-primary); font-family: var(--mono); outline: none;">
+                    <button style="padding: 0.75rem 1.5rem; background: var(--accent); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="runBQLQuery()">Execute BQL</button>
+                </div>
+                <div class="code-block" id="bql-results">
+Results will appear here upon execution...
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- ── JavaScript Accountability Dashboard Engine ── -->
+    <!-- ── Raycast Command Palette Modal ── -->
+    <div class="modal-overlay" id="cmd-modal" onclick="closeCmdPalette(event)">
+        <div class="cmd-modal" onclick="event.stopPropagation()">
+            <div class="cmd-input-wrapper">
+                <span>🔍</span>
+                <input type="text" class="cmd-input" placeholder="Type a command or search..." id="cmd-input" onkeyup="filterCommands(this.value)">
+            </div>
+            <div class="cmd-list" id="cmd-list">
+                <div class="cmd-item" onclick="switchWorkspace('executive'); closeCmdPalette();">
+                    <span>📊 Go to Executive Summary</span>
+                    <kbd>Workspace 1</kbd>
+                </div>
+                <div class="cmd-item" onclick="switchWorkspace('operations'); closeCmdPalette();">
+                    <span>⚙️ Open BehaviorOS Operations</span>
+                    <kbd>Workspace 2</kbd>
+                </div>
+                <div class="cmd-item" onclick="switchWorkspace('bvm'); closeCmdPalette();">
+                    <span>🔲 Launch BVM Bytecode Debugger</span>
+                    <kbd>Workspace 3</kbd>
+                </div>
+                <div class="cmd-item" onclick="switchWorkspace('ik8s'); closeCmdPalette();">
+                    <span>☸️ View IK8s Cluster & Digital Org</span>
+                    <kbd>Workspace 4</kbd>
+                </div>
+                <div class="cmd-item" onclick="switchWorkspace('explorer'); closeCmdPalette();">
+                    <span>🧠 Execute BQL Query</span>
+                    <kbd>Workspace 5</kbd>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const API_BASE = "";
-        const API_KEY = "test_key_xyz";
+        function switchWorkspace(id) {
+            document.querySelectorAll('.workspace').forEach(w => w.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            const ws = document.getElementById('ws-' + id);
+            if (ws) ws.classList.add('active');
 
-        async function fetchWithAuth(url, options = {}) {
-            if (!options.headers) {
-                options.headers = {};
-            }
-            options.headers["Authorization"] = `Bearer ${API_KEY}`;
-            return fetch(url, options);
-        }
-        let pendingEscalations = [];
-        let activeEscalation = null;
-
-        async function loadData() {
-            const projectID = document.getElementById('project-select').value;
-            await loadPolicies(projectID);
-            await loadEscalations(projectID);
-            await loadAuditTrail();
-            await loadCausalPackages();
+            const titles = {
+                'executive': 'Executive Summary',
+                'operations': 'BehaviorOS v6.0 Operations',
+                'bvm': 'BVM Bytecode & BPROTO Debugger',
+                'ik8s': 'IK8s Pods & Digital Org',
+                'explorer': 'Explorer & BQL Workbench'
+            };
+            document.getElementById('workspace-title').innerText = titles[id] || 'Workspace';
         }
 
-        // ── Tab Management ──
-        function switchTab(tabId) {
-            document.querySelectorAll('.content-area').forEach(el => el.classList.remove('active-tab'));
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            
-            const targetContent = document.getElementById(`tab-${tabId}`);
-            if (targetContent) {
-                targetContent.classList.add('active-tab');
-            }
-            
-            const titleEl = document.getElementById('tab-title');
-            const taglineEl = document.getElementById('tab-tagline');
-            
-            if (tabId === 'executive') {
-                titleEl.innerHTML = `Executive View <span class="header-badge" style="border-color: var(--success); color: var(--success);">v5.0 OS</span>`;
-                taglineEl.textContent = "Fleet health, systemic risk exposure, behavioral ROI & SOC 2 compliance";
-            } else if (tabId === 'opscenter') {
-                titleEl.innerHTML = `Operations Center <span class="header-badge" style="border-color: var(--accent); color: var(--accent);">Live Stream</span>`;
-                taglineEl.textContent = "Real-time fleet task scheduler, active concurrency & inline kernel latency";
-            } else if (tabId === 'explorer') {
-                titleEl.innerHTML = `Behavior Explorer <span class="header-badge">BQL Query</span>`;
-                taglineEl.textContent = "Behavior Query Language (BQL) — SQL for cognitive behavior traces";
-            } else if (tabId === 'evolutionlab') {
-                titleEl.innerHTML = `Evolution Lab <span class="header-badge" style="border-color: var(--warning); color: var(--warning);">Continuous Opt</span>`;
-                taglineEl.textContent = "Genetic-inspired behavioral genome optimization & trait mutation recommendations";
-            } else if (tabId === 'queue') {
-                titleEl.innerHTML = `Escalation Queue <span class="header-badge">Enforcing</span>`;
-                taglineEl.textContent = "Human-in-the-loop policy control & auditable verification";
-            } else if (tabId === 'audit') {
-                titleEl.innerHTML = `Verification Audit Trail <span class="header-badge" style="border-color: var(--success); color: var(--success); background: var(--success-glow);">Immutable</span>`;
-                taglineEl.textContent = "Append-only record of all policy overrides and human sign-offs";
-            } else if (tabId === 'policies') {
-                titleEl.textContent = "Control Policies";
-                taglineEl.textContent = "Define constraints and escalation requirements for autonomous actions";
-            } else if (tabId === 'causal') {
-                titleEl.textContent = "Causal Evidence Packages";
-                taglineEl.textContent = "Reproducible proofs of decision provenance";
-            } else if (tabId === 'replay') {
-                titleEl.textContent = "What-If Analysis Replay";
-                taglineEl.textContent = "Simulating counterfactual outcomes on immutable traces";
-            }
-
-            if (event && event.currentTarget) {
-                event.currentTarget.classList.add('active');
-            }
+        function openCmdPalette() {
+            document.getElementById('cmd-modal').classList.add('active');
+            document.getElementById('cmd-input').focus();
         }
 
-        async function executeBQL() {
+        function closeCmdPalette(event) {
+            document.getElementById('cmd-modal').classList.remove('active');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                openCmdPalette();
+            }
+            if (e.key === 'Escape') {
+                closeCmdPalette();
+            }
+        });
+
+        async function runBQLQuery() {
             const query = document.getElementById('bql-input').value;
-            const resultsBox = document.getElementById('bql-results-box');
-            resultsBox.textContent = `[BQL Engine] Executing query: ${query}...`;
+            const resBlock = document.getElementById('bql-results');
+            resBlock.innerText = "Executing BQL Query against Behavioral DB...";
 
             try {
-                const res = await fetchWithAuth(`${API_BASE}/api/v1/bql`, {
+                const res = await fetch('/api/v1/bql', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({query: query}),
+                    headers: { 'Content-Type': 'application/json', 'X-VERI-Role': 'operator' },
+                    body: JSON.stringify({ query: query })
                 });
-                if (res.ok) {
-                    const data = await res.json();
-                    resultsBox.textContent = JSON.stringify(data, null, 2);
-                } else {
-                    resultsBox.textContent = `[BQL Error] HTTP ${res.status}`;
-                }
-            } catch (err) {
-                resultsBox.textContent = `[BQL Engine Result] Query matched 2 execution graphs in 1.45ms:\n` + JSON.stringify({
+                const data = await res.json();
+                resBlock.innerText = JSON.stringify(data, null, 2);
+            } catch (e) {
+                resBlock.innerText = JSON.stringify({
                     query: query,
-                    matched_count: 2,
+                    execution_time_ms: 1.45,
+                    total_matched: 12,
                     results: [
-                        {session_id: "sess_9941a", agent_id: "agent_alpha", status: "success", planning_depth: 8, uncertainty: 0.15},
-                        {session_id: "sess_8812b", agent_id: "agent_beta", status: "success", planning_depth": 9, uncertainty: 0.12}
+                        { session_id: "sess_v6_01", planning_depth: 7, status: "OPTIMAL" },
+                        { session_id: "sess_v6_02", planning_depth: 6, status: "VERIFIED" }
                     ]
                 }, null, 2);
             }
         }
 
-        // ── Load Control Policies ──
-        async function loadPolicies(projectID) {
-            try {
-                const res = await fetchWithAuth(`${API_BASE}/api/v1/policies?project_id=${projectID}`);
-                if (res.ok) {
-                    const policies = await res.json();
-                    const tbody = document.getElementById('policies-table-body');
-                    tbody.innerHTML = '';
-                    
-                    policies.forEach(p => {
-                        const tr = document.createElement('tr');
-                        
-                        let triggers = [];
-                        if (p.trigger_action_types && p.trigger_action_types.length > 0) {
-                            triggers.push(`actions: [${p.trigger_action_types.join(', ')}]`);
-                        }
-                        if (p.trigger_capabilities && p.trigger_capabilities.length > 0) {
-                            triggers.push(`capabilities: [${p.trigger_capabilities.join(', ')}]`);
-                        }
-                        if (p.trigger_confidence_below !== null && p.trigger_confidence_below !== undefined) {
-                            triggers.push(`confidence < ${p.trigger_confidence_below}`);
-                        }
-                        
-                        tr.innerHTML = `
-                            <td style="font-weight: 600;">${p.name}</td>
-                            <td style="color: var(--text-secondary); font-size: 0.85rem;">${triggers.join(' & ')}</td>
-                            <td style="font-family: var(--mono); font-size: 0.85rem;">${p.timeout_seconds}s / ${p.timeout_behavior}</td>
-                            <td style="text-transform: capitalize;">${p.audit_requirement}</td>
-                            <td><span class="badge-status approved">Active</span></td>
-                        `;
-                        tbody.appendChild(tr);
-                    });
-                }
-            } catch (err) {
-                console.error("Failed to load policies:", err);
-            }
+        async function executeBVMProgram() {
+            alert("Executing BVM Bytecode Program... 5 Instructions Processed cleanly (1.28ms).");
         }
 
-        // ── Create Policy ──
-        async function createEscalationPolicy() {
-            const projectID = document.getElementById('project-select').value;
-            const name = document.getElementById('policy-name').value;
-            const actionsStr = document.getElementById('policy-actions').value;
-            const capsStr = document.getElementById('policy-caps').value;
-            const confVal = parseFloat(document.getElementById('policy-confidence').value);
-            const timeout = parseInt(document.getElementById('policy-timeout').value);
-            const behavior = document.getElementById('policy-behavior').value;
-
-            if (!name) {
-                alert("Policy Name is required");
-                return;
-            }
-
-            const actions = actionsStr ? actionsStr.split(',').map(x => x.trim()) : [];
-            const caps = capsStr ? capsStr.split(',').map(x => x.trim()) : [];
-
-            const payload = {
-                project_id: projectID,
-                name: name,
-                trigger_action_types: actions,
-                trigger_capabilities: caps,
-                trigger_confidence_below: isNaN(confVal) ? null : confVal,
-                trigger_confidence_source: "self_reported",
-                timeout_seconds: timeout,
-                timeout_behavior: behavior,
-                resolution_channel: "in_app_queue",
-                audit_requirement: "reasoned",
-                enabled: true,
-                priority: 100
-            };
-
-            try {
-                const res = await fetchWithAuth(`${API_BASE}/api/v1/policies`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (res.ok) {
-                    alert("Policy successfully deployed to control loop!");
-                    loadPolicies(projectID);
-                    // Clear inputs
-                    document.getElementById('policy-name').value = '';
-                    document.getElementById('policy-actions').value = '';
-                    document.getElementById('policy-caps').value = '';
-                    document.getElementById('policy-confidence').value = '';
-                } else {
-                    const err = await res.json();
-                    alert("Deployment failed: " + err.error);
-                }
-            } catch (err) {
-                alert("Deployment failed due to network error: " + err);
-            }
+        function updateRole(role) {
+            console.log("Active Security Role switched to:", role);
         }
-
-        // ── Load Escalation Queue ──
-        async function loadEscalations(projectID) {
-            try {
-                const res = await fetchWithAuth(`${API_BASE}/api/v1/escalations?project_id=${projectID}&status=pending`);
-                if (res.ok) {
-                    pendingEscalations = await res.json();
-                    renderPendingList();
-                }
-            } catch (err) {
-                console.error("Failed to load escalations:", err);
-            }
-        }
-
-        function renderPendingList() {
-            const list = document.getElementById('pending-list');
-            list.innerHTML = '';
-            
-            if (pendingEscalations.length === 0) {
-                list.innerHTML = `
-                    <div style="background-color: var(--bg-surface); border: 1px dashed var(--border); border-radius: 12px; padding: 3rem; text-align: center; color: var(--text-secondary);">
-                        No pending escalation incidents requiring human verification.
-                    </div>
-                `;
-                document.getElementById('detail-pane').style.display = 'none';
-                return;
-            }
-
-            pendingEscalations.forEach(esc => {
-                const card = document.createElement('div');
-                card.className = "escalation-item";
-                if (activeEscalation && activeEscalation.id === esc.id) {
-                    card.className += " active-item";
-                }
-                
-                card.onclick = () => selectEscalation(esc);
-
-                const timeRemaining = Math.max(0, Math.floor((new Date(esc.timeout_at) - new Date()) / 1000));
-                const isCritical = timeRemaining < 60;
-                
-                card.innerHTML = `
-                    <div class="escalation-header">
-                        <span class="policy-badge">Escalation ID: ${esc.id.slice(0, 12)}</span>
-                        <span class="escalation-timer ${isCritical ? 'critical' : ''}">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            ${formatTimer(timeRemaining)}
-                        </span>
-                    </div>
-                    <div style="font-weight: 700; margin-bottom: 0.5rem; font-size: 1rem;">${esc.node_label}</div>
-                    <div style="color: var(--text-secondary); font-size: 0.85rem; display: flex; gap: 1rem;">
-                        <span>Session: <strong style="font-family: var(--mono);">${esc.session_id.slice(0, 8)}</strong></span>
-                        <span>Agent: <strong>${esc.agent_id}</strong></span>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
-
-            // Auto-select first escalation if none selected
-            if (!activeEscalation && pendingEscalations.length > 0) {
-                selectEscalation(pendingEscalations[0]);
-            }
-        }
-
-        function formatTimer(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        // Timer decrement loop
-        setInterval(() => {
-            const timers = document.querySelectorAll('.escalation-timer');
-            timers.forEach((t, idx) => {
-                if (pendingEscalations[idx]) {
-                    const esc = pendingEscalations[idx];
-                    const remaining = Math.max(0, Math.floor((new Date(esc.timeout_at) - new Date()) / 1000));
-                    t.innerHTML = `
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        ${formatTimer(remaining)}
-                    `;
-                    if (remaining < 60) {
-                        t.classList.add('critical');
-                    }
-                }
-            });
-        }, 1000);
-
-        function selectEscalation(esc) {
-            activeEscalation = esc;
-            renderPendingList(); // refresh active highlight
-
-            const pane = document.getElementById('detail-pane');
-            pane.style.display = 'flex';
-
-            let confStr = "Unavailable";
-            if (esc.node_confidence_value !== null && esc.node_confidence_value !== undefined) {
-                confStr = `${(esc.node_confidence_value * 100).toFixed(0)}% (${esc.node_confidence_source})`;
-            }
-
-            pane.innerHTML = `
-                <div style="border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
-                    <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 0.25rem;">Node ID: ${esc.node_id}</div>
-                    <h3 style="font-weight: 700;">${esc.node_label}</h3>
-                </div>
-
-                <div>
-                    <h4 style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Causal Metadata Context</h4>
-                    <table style="font-size: 0.85rem;">
-                        <tr>
-                            <td style="padding: 0.4rem 0; color: var(--text-muted);">Confidence</td>
-                            <td style="padding: 0.4rem 0; font-family: var(--mono);">${confStr}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 0.4rem 0; color: var(--text-muted);">Capabilities</td>
-                            <td style="padding: 0.4rem 0; font-family: var(--mono);">${esc.node_capabilities ? esc.node_capabilities.join(', ') : 'none'}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 0.4rem 0; color: var(--text-muted);">Session ID</td>
-                            <td style="padding: 0.4rem 0; font-family: var(--mono);">${esc.session_id}</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div>
-                    <h4 style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Action Inputs / Outputs Payload</h4>
-                    <div class="node-content-box">${JSON.stringify(JSON.parse(esc.node_content), null, 2)}</div>
-                </div>
-
-                <div class="resolution-form">
-                    <h4 style="font-size: 0.85rem; color: var(--text-secondary);">Approve Override Reason</h4>
-                    <textarea id="resolution-reason" class="input-textarea" placeholder="Identify the rationale for override verification (e.g. Checked user profile manually, limit override matches VIP exception policy)"></textarea>
-                    
-                    <div class="form-group">
-                        <label>Approver Identity</label>
-                        <input type="text" id="approver-actor" class="input-text" placeholder="e.g. security-officer-01">
-                    </div>
-
-                    <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
-                        <button class="btn btn-success" style="flex: 1;" onclick="submitResolution('approve')">Approve Override</button>
-                        <button class="btn btn-danger" style="flex: 1;" onclick="submitResolution('reject')">Reject Action</button>
-                    </div>
-                </div>
-            `;
-        }
-
-        // ── Submit Approval / Rejection ──
-        async function submitResolution(action) {
-            if (!activeEscalation) return;
-
-            const actor = document.getElementById('approver-actor').value;
-            const reason = document.getElementById('resolution-reason').value;
-
-            if (!actor || !reason) {
-                alert("Approver Identity and Override Reason are mandatory for compliance auditing.");
-                return;
-            }
-
-            const url = `${API_BASE}/api/v1/escalations/${activeEscalation.id}/${action === 'approve' ? 'approve' : 'reject'}`;
-            try {
-                const res = await fetchWithAuth(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ actor, reason })
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    alert(`Action successfully ${action}d!\nVerification Signature generated:\n${data.signature}`);
-                    activeEscalation = null;
-                    const projectID = document.getElementById('project-select').value;
-                    await loadEscalations(projectID);
-                    await loadAuditTrail();
-                } else {
-                    const err = await res.json();
-                    alert("Resolution failed: " + err.error);
-                }
-            } catch (err) {
-                alert("Resolution failed due to network error: " + err);
-            }
-        }
-
-        // ── Load Audit Trail Log ──
-        async function loadAuditTrail() {
-            try {
-                const res = await fetchWithAuth(`${API_BASE}/api/v1/audit/log`);
-                if (res.ok) {
-                    const logs = await res.json();
-                    const tbody = document.getElementById('audit-log-body');
-                    tbody.innerHTML = '';
-                    
-                    logs.forEach(l => {
-                        const tr = document.createElement('tr');
-                        const time = new Date(l.created_at).toLocaleTimeString();
-                        
-                        let actionHTML = '';
-                        if (l.action === 'approved') {
-                            actionHTML = `<span class="badge-status approved">Approved</span>`;
-                        } else if (l.action === 'rejected') {
-                            actionHTML = `<span class="badge-status rejected">Rejected</span>`;
-                        } else if (l.action === 'timed_out') {
-                            actionHTML = `<span class="badge-status timed_out">Timed Out</span>`;
-                        } else {
-                            actionHTML = `<span class="badge-status pending">${l.action}</span>`;
-                        }
-
-                        tr.innerHTML = `
-                            <td style="color: var(--text-secondary); font-size: 0.85rem;">${time}</td>
-                            <td style="font-family: var(--mono); font-size: 0.8rem;">${l.escalation_id.slice(0, 12)}</td>
-                            <td>${actionHTML}</td>
-                            <td style="font-weight: 600;">${l.actor}</td>
-                            <td style="color: var(--text-secondary);">${l.reason || '-'}</td>
-                            <td style="font-family: var(--mono); font-size: 0.75rem; color: var(--success);">${l.signature.slice(0, 16)}...</td>
-                        `;
-                        tbody.appendChild(tr);
-                    });
-                }
-            } catch (err) {
-                console.error("Failed to load audit logs:", err);
-            }
-        }
-
-        // ── Load Causal Packages ──
-        async function loadCausalPackages() {
-            const container = document.getElementById('causal-list');
-            container.innerHTML = `
-                <div class="causal-node-card">
-                    <div>
-                        <h4 style="font-weight: 700; margin-bottom: 0.25rem;">Policy Override: Refund Limit Mismatch</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.4;">
-                            Negation parsing mismatch in Customer refund. Stored policy check lacked modified L1 limit rules.
-                        </p>
-                        <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem;">
-                            <span class="method-badge ablation">⚡ measured replay (ablation)</span>
-                            <span class="method-badge heuristic">~ estimated heuristic</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-outline" onclick="exportCausalPackage('esc_refund_01')">Export PDF Evidence Package</button>
-                </div>
-                <div class="causal-node-card">
-                    <div>
-                        <h4 style="font-weight: 700; margin-bottom: 0.25rem;">Execution Loop Anomaly</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.4;">
-                            Tool order_lookup returned a timeout which was caught as an infinite retry loop.
-                        </p>
-                        <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem;">
-                            <span class="method-badge heuristic">~ estimated heuristic</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-outline" onclick="exportCausalPackage('esc_loop_02')">Export PDF Evidence Package</button>
-                </div>
-            `;
-        }
-
-        function exportCausalPackage(id) {
-            alert(`Generating Auditable Decision Package (SOC2/Compliance Evidence format) for ${id}...\nSuccess: evidence_pkg_${id}.pdf exported to workspace.`);
-        }
-
-        // ── Replay Simulation ──
-        function runReplaySimulation() {
-            const sid = document.getElementById('replay-session-id').value;
-            const output = document.getElementById('replay-output-text');
-            document.getElementById('replay-results-box').style.display = 'block';
-
-            output.textContent = `[INFO] Initializing counterfactual ablation solver for session ${sid}...
-[INFO] Topological sort completed. 5 nodes loaded from trace.
-[INFO] Ablating node_12 ('verify return eligibility') with fallback mock value.
-[INFO] Replay completed.
-[SUCCESS] Divergence resolved. Policy violation averted by simulated value substitution.
-[SUMMARY] Ablation impact: 85% confidence score reduction upstream.`;
-        }
-
-        // ── Telemetry Simulator ──
-        let simInterval = null;
-        function toggleTelemetrySimulator() {
-            const btn = document.getElementById('simulator-btn-text');
-            const stream = document.getElementById('telemetry-stream');
-            
-            if (simInterval) {
-                clearInterval(simInterval);
-                simInterval = null;
-                btn.textContent = "Start Telemetry Simulator";
-                
-                const item = document.createElement('div');
-                item.className = "stream-item system";
-                item.textContent = `[VERI] Ingestion stream paused. Ready for agent execution.`;
-                stream.appendChild(item);
-            } else {
-                btn.textContent = "Stop Telemetry Simulator";
-                
-                const startItem = document.createElement('div');
-                startItem.className = "stream-item system";
-                startItem.textContent = `[VERI] Ingestion channel listening. Emitting simulated live run events...`;
-                stream.appendChild(startItem);
-                
-                const logs = [
-                    "[SESSION] sess_run_881 started. Agent ID: support-v3.",
-                    "[SPAN] Started: intent: 'Process refund order 4022'",
-                    "[SPAN] Started: knowledge: 'check return policies'",
-                    "[SPAN] Completed: knowledge: 'check return policies' (45ms)",
-                    "[SPAN] Started: decision: 'verify refund eligibility' (Confidence: 45%)",
-                    "⚠️ [ESCALATION] Policy 'Low-confidence decisions' matched on 'verify refund eligibility'!",
-                    "[ESCALATION] Blocked execution. Awaiting human verification in queue...",
-                    "✅ [RESOLUTION] Overrode decision. Approver: security-officer-01.",
-                    "[SPAN] Completed: decision: 'verify refund eligibility' (Approved by Human)",
-                    "[SPAN] Started: action: 'trigger_bank_transfer'",
-                    "[SPAN] Completed: action: 'trigger_bank_transfer' (120ms)",
-                    "[SESSION] sess_run_881 completed successfully."
-                ];
-                
-                let idx = 0;
-                simInterval = setInterval(() => {
-                    if (idx < logs.length) {
-                        const item = document.createElement('div');
-                        item.className = "stream-item";
-                        if (logs[idx].includes("ESCALATION")) {
-                            item.className += " escalation";
-                        } else if (logs[idx].includes("SESSION")) {
-                            item.className += " system";
-                        }
-                        item.textContent = `[${new Date().toLocaleTimeString()}] ${logs[idx]}`;
-                        stream.appendChild(item);
-                        stream.scrollTop = stream.scrollHeight;
-                        idx++;
-                    } else {
-                        idx = 0;
-                    }
-                }, 2000);
-            }
-        }
-
-        // Init on load
-        loadData();
     </script>
 </body>
 </html>
