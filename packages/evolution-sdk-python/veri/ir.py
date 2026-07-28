@@ -6,7 +6,21 @@ All agent executions compile into this schema.
 """
 
 import time
-import ulid
+try:
+    import ulid
+except ImportError:
+    import uuid as _uuid
+
+    class _ULIDFallback:
+        @property
+        def str(self) -> str:
+            return str(_uuid.uuid4())
+
+    class ulid:  # type: ignore[no-redef]
+        @staticmethod
+        def new() -> _ULIDFallback:
+            return _ULIDFallback()
+
 from typing import Any, Dict, List, Optional
 
 
@@ -143,19 +157,23 @@ class RuntimeEdge:
 
     def __init__(
         self,
-        source: str,
-        target: str,
-        kind: str,
-        session_id: str,
+        source: str = "",
+        target: str = "",
+        kind: str = "",
+        session_id: Optional[str] = None,
         id: Optional[str] = None,
         weight: Optional[float] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        source_id: Optional[str] = None,
+        target_id: Optional[str] = None,
     ):
         self.id = id or ulid.new().str
-        self.source = source
-        self.target = target
+        self.source = source_id if source_id is not None else source
+        self.target = target_id if target_id is not None else target
+        self.source_id = self.source
+        self.target_id = self.target
         self.kind = kind
-        self.session_id = session_id
+        self.session_id = session_id or ""
         self.weight = weight
         self.metadata = metadata or {}
 
@@ -165,6 +183,8 @@ class RuntimeEdge:
             "id": self.id,
             "source": self.source,
             "target": self.target,
+            "source_id": self.source_id,
+            "target_id": self.target_id,
             "kind": self.kind,
             "session_id": self.session_id,
             "weight": self.weight,

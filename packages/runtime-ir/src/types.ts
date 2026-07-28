@@ -20,9 +20,9 @@ export interface RuntimeEdge {
   id: string;
   sourceId: string;
   targetId: string;
-  kind: 'depends_on' | 'causes' | 'conflicts_with' | 'updates' | 'constrains';
+  kind: 'depends_on' | 'causes' | 'conflicts_with' | 'updates' | 'constrains' | string;
   weight?: number;
   metadata?: Record<string, unknown>;
-  sessionId: string;
-  edgeConfidenceSource: 'measured' | 'inferred';
+  sessionId?: string;
+  edgeConfidenceSource?: 'measured' | 'inferred';
 }

@@ -12,6 +12,7 @@ Supported BQL Commands:
 """
 
 import re
+import time
 from typing import List, Dict, Any, Optional, Tuple
 
 from veri.ir import RuntimeNode, NodeKind

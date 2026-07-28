@@ -13,7 +13,20 @@ import contextvars
 import threading
 from typing import Any, Dict, List, Optional, Tuple
 
-import ulid
+try:
+    import ulid
+except ImportError:
+    import uuid as _uuid
+
+    class _ULIDFallback:
+        @property
+        def str(self) -> str:
+            return str(_uuid.uuid4())
+
+    class ulid:  # type: ignore[no-redef]
+        @staticmethod
+        def new() -> _ULIDFallback:
+            return _ULIDFallback()
 from .ir_ref import IRRef, extract_refs
 from .escalation import (
     EscalationEngine,

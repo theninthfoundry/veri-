@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"sync"
 	"time"
 
 	_ "github.com/ClickHouse/clickhouse-go/v2"
@@ -1199,6 +1200,7 @@ func mergeMaps(dest, src map[string]any) {
 				}
 				continue
 			}
+		}
 		// Otherwise overwrite
 		dest[k] = v
 	}
@@ -2264,7 +2266,7 @@ func (s *GatewayServer) HandleOSIFSRead(c *gin.Context) {
 
 func (s *GatewayServer) HandleOSBVMExecute(c *gin.Context) {
 	var req struct {
-		ProgramID str `json:"program_id"`
+		ProgramID string `json:"program_id"`
 	}
 	_ = c.ShouldBindJSON(&req)
 
@@ -2303,6 +2305,7 @@ func (s *GatewayServer) HandleOSCivilizationHealth(c *gin.Context) {
 		"active_crises_count":       0,
 		"timestamp":                 time.Now().Format(time.RFC3339),
 	})
+}
 
 // ── Enterprise Security Engine ──────────────────────────────────────────────
 

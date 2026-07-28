@@ -52,6 +52,8 @@ export class VERIContext {
         sourceId: parentNode.id,
         targetId: node.id,
         kind: 'causes',
+        sessionId: node.sessionId,
+        edgeConfidenceSource: 'inferred',
       });
     }
 
@@ -65,15 +67,12 @@ export class VERIContext {
       const errorNode: RuntimeNode = {
         id: `node-err-${Date.now()}`,
         kind: 'error',
+        capabilities: [],
         label: `Error: ${err.message || 'Execution failed'}`,
         content: { error: String(err) },
-        confidence: 1.0,
-        uncertainty: 0.0,
-        evidence: [],
-        assumptions: [],
+        confidence: { value: 1.0, source: 'measured' },
         cost: 0,
         latency: node.latency,
-        tokens: { input: 0, output: 0 },
         timestamp: new Date().toISOString(),
         agentId: node.agentId,
         sessionId: node.sessionId,
@@ -85,6 +84,8 @@ export class VERIContext {
         sourceId: node.id,
         targetId: errorNode.id,
         kind: 'causes',
+        sessionId: node.sessionId,
+        edgeConfidenceSource: 'inferred',
       });
       throw err;
     } finally {

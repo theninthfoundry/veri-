@@ -15,7 +15,21 @@ Linux vs ikernel Equivalents:
 """
 
 import time
-import ulid
+try:
+    import ulid
+except ImportError:
+    import uuid as _uuid
+
+    class _ULIDFallback:
+        @property
+        def str(self) -> str:
+            return str(_uuid.uuid4())
+
+    class ulid:  # type: ignore[no-redef]
+        @staticmethod
+        def new() -> _ULIDFallback:
+            return _ULIDFallback()
+
 import threading
 from enum import Enum
 from typing import List, Dict, Any, Optional, Set, Tuple, Callable

@@ -2,6 +2,7 @@
  * VERI Runtime Client & AsyncLocalStorage Context Tracker — TypeScript
  */
 
+// @ts-ignore
 import { AsyncLocalStorage } from "async_hooks";
 import { RuntimeNode, RuntimeEdge, NodeKind, EdgeKind } from "./ir.js";
 import { BehaviorContract, ContractViolation } from "./contracts.js";

@@ -567,3 +567,12 @@ func getUpstreamCandidates(edges []ReplayEdge, target string) []string {
 	}
 	return candidates
 }
+
+func hasCapability(caps []string, target string) bool {
+	for _, c := range caps {
+		if c == target {
+			return true
+		}
+	}
+	return false
+}
