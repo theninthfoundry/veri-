@@ -74,6 +74,10 @@ func (s *GatewayServer) HandleReplay(c *gin.Context) {
 		n.Capabilities = caps
 		nodes = append(nodes, n)
 	}
+	if err := rows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating nodes: " + err.Error()})
+		return
+	}
 
 	if len(nodes) == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "No nodes found for session: " + req.SessionID})
@@ -98,6 +102,10 @@ func (s *GatewayServer) HandleReplay(c *gin.Context) {
 		if err := edgeRows.Scan(&e.SourceID, &e.TargetID, &e.Kind); err == nil {
 			edges = append(edges, e)
 		}
+	}
+	if err := edgeRows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating edges: " + err.Error()})
+		return
 	}
 
 	// 3. Topological Sort
@@ -230,6 +238,10 @@ func (s *GatewayServer) HandleAblation(c *gin.Context) {
 		nodes = append(nodes, n)
 		nodeMap[n.ID] = n
 	}
+	if err := rows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating nodes: " + err.Error()})
+		return
+	}
 
 	edgeRows, err := s.pgConn.Query(`
 		SELECT source_id, target_id, kind
@@ -248,6 +260,10 @@ func (s *GatewayServer) HandleAblation(c *gin.Context) {
 		if err := edgeRows.Scan(&e.SourceID, &e.TargetID, &e.Kind); err == nil {
 			edges = append(edges, e)
 		}
+	}
+	if err := edgeRows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating edges: " + err.Error()})
+		return
 	}
 
 	// 2. Find upstream candidates that can reach the failure node
@@ -367,6 +383,11 @@ func (s *GatewayServer) HandleSessionDiff(c *gin.Context) {
 				nodeMapA[n.Label] = n // use label for diffing logical nodes across sessions
 			}
 		}
+		if err := rowsA.Err(); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating session A nodes: " + err.Error()})
+			rowsA.Close()
+			return
+		}
 		rowsA.Close()
 	}
 
@@ -390,6 +411,11 @@ func (s *GatewayServer) HandleSessionDiff(c *gin.Context) {
 				nodesB = append(nodesB, n)
 				nodeMapB[n.Label] = n
 			}
+		}
+		if err := rowsB.Err(); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating session B nodes: " + err.Error()})
+			rowsB.Close()
+			return
 		}
 		rowsB.Close()
 	}

@@ -618,6 +618,9 @@ func (s *GatewayServer) HandleGetSessions(c *gin.Context) {
 				loopSessions[sid] = true
 			}
 		}
+		if err := loopRows.Err(); err != nil {
+			log.Printf("Error iterating loopRows: %v", err)
+		}
 	}
 
 	sessions := []SessionSummary{}
@@ -637,6 +640,10 @@ func (s *GatewayServer) HandleGetSessions(c *gin.Context) {
 			sSum.Status = "Success"
 		}
 		sessions = append(sessions, sSum)
+	}
+	if err := rows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating sessions: " + err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, sessions)
@@ -700,6 +707,10 @@ func (s *GatewayServer) HandleGetSessionDetails(c *gin.Context) {
 			return
 		}
 		rawEvents = append(rawEvents, ev)
+	}
+	if err := rows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating raw events: " + err.Error()})
+		return
 	}
 
 	if len(rawEvents) == 0 {
@@ -938,6 +949,10 @@ func (s *GatewayServer) HandleGetPredictions(c *gin.Context) {
 		pred.Evidence = string(evidenceBytes)
 		preds = append(preds, pred)
 	}
+	if err := rows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating predictions: " + err.Error()})
+		return
+	}
 
 	c.JSON(http.StatusOK, preds)
 }
@@ -975,6 +990,10 @@ func (s *GatewayServer) HandleGetSuggestions(c *gin.Context) {
 			return
 		}
 		sugs = append(sugs, sug)
+	}
+	if err := rows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating suggestions: " + err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, sugs)
@@ -1125,6 +1144,10 @@ func (s *GatewayServer) HandleGetGoldenTests(c *gin.Context) {
 			return
 		}
 		tests = append(tests, gt)
+	}
+	if err := rows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating golden tests: " + err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, tests)
@@ -1310,6 +1333,10 @@ func (s *GatewayServer) HandleListPolicies(c *gin.Context) {
 		p.TriggerActionTypes = actions
 		policies = append(policies, p)
 	}
+	if err := rows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating policies: " + err.Error()})
+		return
+	}
 
 	c.JSON(http.StatusOK, policies)
 }
@@ -1489,6 +1516,10 @@ func (s *GatewayServer) HandleListEscalations(c *gin.Context) {
 		er.NodeCapabilities = caps
 		escalations = append(escalations, er)
 	}
+	if err := rows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating escalations: " + err.Error()})
+		return
+	}
 
 	c.JSON(http.StatusOK, escalations)
 }
@@ -1589,7 +1620,9 @@ func (s *GatewayServer) HandleCreateEscalation(c *gin.Context) {
 		"session_id":    req.SessionID,
 		"node_label":    req.NodeLabel,
 	})
-	_ = s.natsJS.Publish(c, "veri.event.escalation", eventPayload)
+	if s.natsJS != nil {
+		_, _ = s.natsJS.Publish("veri.event.escalation", eventPayload)
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"id":          id,
@@ -1677,7 +1710,9 @@ func (s *GatewayServer) resolveEscalation(c *gin.Context, targetStatus string) {
 		"status":        targetStatus,
 		"resolved_by":   req.Actor,
 	})
-	_ = s.natsJS.Publish(c, "veri.event.escalation", eventPayload)
+	if s.natsJS != nil {
+		_, _ = s.natsJS.Publish("veri.event.escalation", eventPayload)
+	}
 
 	c.JSON(http.StatusOK, gin.H{"status": targetStatus, "signature": sig})
 }
@@ -1722,6 +1757,10 @@ func (s *GatewayServer) HandleGetAuditLog(c *gin.Context) {
 		}
 		ae.Metadata = string(metadata)
 		entries = append(entries, ae)
+	}
+	if err := rows.Err(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error iterating audit log: " + err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, entries)
@@ -1782,6 +1821,9 @@ func (s *GatewayServer) escalationTimeoutChecker() {
 					log.Printf("Escalation %s timed out and logged to audit trail.", id)
 				}
 			}
+		}
+		if err := rows.Err(); err != nil {
+			log.Printf("Error iterating timeout rows: %v", err)
 		}
 		rows.Close()
 	}
