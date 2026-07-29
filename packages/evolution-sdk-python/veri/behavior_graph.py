@@ -1,5 +1,5 @@
 """
-VERI Behavior Graph Engine — BehaviorOS v5.0
+VERI Behavior Graph Engine - BehaviorOS v5.0
 
 Unified Behavior Graph Engine that unifies raw execution traces into
 a true cognitive knowledge, belief, and hypothesis graph.
@@ -19,7 +19,7 @@ from collections import defaultdict
 from veri.ir import RuntimeNode, RuntimeEdge, NodeKind, EdgeKind
 
 
-# ── Extended Cognitive Node & Edge Kinds ────────────────────────────
+# -- Extended Cognitive Node & Edge Kinds ------------------------------------
 
 
 class CognitiveNodeKind:
@@ -44,7 +44,7 @@ class CognitiveEdgeKind:
     EVOLVED_INTO = "evolved_into"
 
 
-# ── Behavior Graph ─────────────────────────────────────────────────
+# -- Behavior Graph ---------------------------------------------------------
 
 
 class BehaviorGraphNode:
@@ -123,7 +123,6 @@ class UnifiedBehaviorGraph:
     ) -> None:
         """Ingests raw RuntimeIR nodes and maps them into cognitive graph representations."""
         for n in nodes:
-            # Map RuntimeNode kind to CognitiveNodeKind
             cog_kind = self._map_kind(n.kind)
             cog_node = BehaviorGraphNode(
                 node_id=n.id,
@@ -184,7 +183,7 @@ class UnifiedBehaviorGraph:
             "supported_hypotheses": [n.to_dict() for n in self.get_supported_hypotheses()],
         }
 
-    # ── Internal Kind Mapping ─────────────────────────────────────
+    # -- Internal Kind Mapping -----------------------------------------------
 
     def _map_kind(self, kind: str) -> str:
         mapping = {

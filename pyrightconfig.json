@@ -3,6 +3,8 @@
     "packages/evolution-sdk-python",
     "packages/veri-cli"
   ],
+  "reportMissingImports": "none",
+  "reportMissingModuleSource": "none",
   "executionEnvironments": [
     {
       "root": ".",

@@ -163,8 +163,8 @@ class HierarchicalMemoryManager:
 
         return None
 
-    def get_layer_stats(() -> Dict[str, Any]:
-        pass
+    def get_layer_stats(self) -> Dict[str, Any]:
+        return self.get_memory_stats()
 
     def get_memory_stats(self) -> Dict[str, Any]:
         """Summary statistics across all 6 memory layers."""

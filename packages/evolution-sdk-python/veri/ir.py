@@ -7,7 +7,7 @@ All agent executions compile into this schema.
 
 import time
 try:
-    import ulid
+    import ulid  # type: ignore # pyright: ignore[reportMissingImports]
 except ImportError:
     import uuid as _uuid
 
